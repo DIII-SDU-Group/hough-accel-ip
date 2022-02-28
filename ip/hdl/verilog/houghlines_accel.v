@@ -7,7 +7,7 @@
 
 `timescale 1 ns / 1 ps 
 
-(* CORE_GENERATION_INFO="houghlines_accel_houghlines_accel,hls_ip_2020_2,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xczu3eg-sbva484-1-i,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=dataflow,HLS_SYN_CLOCK=6.923278,HLS_SYN_LAT=258878,HLS_SYN_TPT=258877,HLS_SYN_MEM=437,HLS_SYN_DSP=0,HLS_SYN_FF=60520,HLS_SYN_LUT=1839171,HLS_VERSION=2020_2}" *)
+(* CORE_GENERATION_INFO="houghlines_accel_houghlines_accel,hls_ip_2020_2,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xczu3eg-sbva484-1-i,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=dataflow,HLS_SYN_CLOCK=6.923278,HLS_SYN_LAT=258910,HLS_SYN_TPT=258909,HLS_SYN_MEM=439,HLS_SYN_DSP=0,HLS_SYN_FF=60600,HLS_SYN_LUT=1839183,HLS_VERSION=2020_2}" *)
 
 module houghlines_accel (
         s_axi_BUS_A_AWVALID,
@@ -99,8 +99,10 @@ wire    HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_ap_continue;
 wire    HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_ap_idle;
 wire    HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_ap_ready;
 wire    HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_imgInput_44_read;
-wire   [31:0] HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array;
-wire    HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ap_vld;
+wire   [4:0] HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_address0;
+wire    HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ce0;
+wire    HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_we0;
+wire   [31:0] HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_d0;
 wire    HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_p_src_mat_rows_read;
 wire    HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_p_src_mat_cols_read;
 wire    ap_sync_continue;
@@ -165,8 +167,10 @@ BUS_A_s_axi_U(
     .ACLK(ap_clk),
     .ARESET(ap_rst_n_inv),
     .ACLK_EN(1'b1),
-    .theta_array(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array),
-    .theta_array_ap_vld(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ap_vld),
+    .theta_array_address0(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_address0),
+    .theta_array_ce0(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ce0),
+    .theta_array_we0(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_we0),
+    .theta_array_d0(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_d0),
     .img_in_address0(Array2xfMat_8_0_480_640_1_U0_img_in_address0),
     .img_in_ce0(Array2xfMat_8_0_480_640_1_U0_img_in_ce0),
     .img_in_q0(img_in_q0),
@@ -235,8 +239,10 @@ houghlines_accel_HoughLines_1u_2u_32_800_0_180_0_480_640_1_s HoughLines_1u_2u_32
     .imgInput_44_dout(imgInput_data_dout),
     .imgInput_44_empty_n(imgInput_data_empty_n),
     .imgInput_44_read(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_imgInput_44_read),
-    .theta_array(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array),
-    .theta_array_ap_vld(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ap_vld),
+    .theta_array_address0(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_address0),
+    .theta_array_ce0(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ce0),
+    .theta_array_we0(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_we0),
+    .theta_array_d0(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_d0),
     .p_src_mat_rows_dout(imgInput_rows_c7_dout),
     .p_src_mat_rows_empty_n(imgInput_rows_c7_empty_n),
     .p_src_mat_rows_read(HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_p_src_mat_rows_read),

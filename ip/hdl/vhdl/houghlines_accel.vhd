@@ -40,12 +40,11 @@ end;
 architecture behav of houghlines_accel is 
     attribute CORE_GENERATION_INFO : STRING;
     attribute CORE_GENERATION_INFO of behav : architecture is
-    "houghlines_accel_houghlines_accel,hls_ip_2020_2,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xczu3eg-sbva484-1-i,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=dataflow,HLS_SYN_CLOCK=6.923278,HLS_SYN_LAT=258878,HLS_SYN_TPT=258877,HLS_SYN_MEM=437,HLS_SYN_DSP=0,HLS_SYN_FF=60520,HLS_SYN_LUT=1839171,HLS_VERSION=2020_2}";
+    "houghlines_accel_houghlines_accel,hls_ip_2020_2,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xczu3eg-sbva484-1-i,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=dataflow,HLS_SYN_CLOCK=6.923278,HLS_SYN_LAT=258910,HLS_SYN_TPT=258909,HLS_SYN_MEM=439,HLS_SYN_DSP=0,HLS_SYN_FF=60600,HLS_SYN_LUT=1839183,HLS_VERSION=2020_2}";
     constant C_S_AXI_DATA_WIDTH : INTEGER range 63 downto 0 := 20;
     constant C_S_AXI_WSTRB_WIDTH : INTEGER range 63 downto 0 := 4;
     constant C_S_AXI_ADDR_WIDTH : INTEGER range 63 downto 0 := 20;
     constant ap_const_logic_1 : STD_LOGIC := '1';
-    constant ap_const_lv32_0 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
     constant ap_const_logic_0 : STD_LOGIC := '0';
     constant ap_const_boolean_1 : BOOLEAN := true;
 
@@ -87,8 +86,10 @@ architecture behav of houghlines_accel is
     signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_ap_idle : STD_LOGIC;
     signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_ap_ready : STD_LOGIC;
     signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_imgInput_44_read : STD_LOGIC;
-    signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array : STD_LOGIC_VECTOR (31 downto 0);
-    signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ap_vld : STD_LOGIC;
+    signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_address0 : STD_LOGIC_VECTOR (4 downto 0);
+    signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ce0 : STD_LOGIC;
+    signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_we0 : STD_LOGIC;
+    signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_d0 : STD_LOGIC_VECTOR (31 downto 0);
     signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_p_src_mat_rows_read : STD_LOGIC;
     signal HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_p_src_mat_cols_read : STD_LOGIC;
     signal ap_sync_continue : STD_LOGIC;
@@ -186,8 +187,10 @@ architecture behav of houghlines_accel is
         imgInput_44_dout : IN STD_LOGIC_VECTOR (7 downto 0);
         imgInput_44_empty_n : IN STD_LOGIC;
         imgInput_44_read : OUT STD_LOGIC;
-        theta_array : OUT STD_LOGIC_VECTOR (31 downto 0);
-        theta_array_ap_vld : OUT STD_LOGIC;
+        theta_array_address0 : OUT STD_LOGIC_VECTOR (4 downto 0);
+        theta_array_ce0 : OUT STD_LOGIC;
+        theta_array_we0 : OUT STD_LOGIC;
+        theta_array_d0 : OUT STD_LOGIC_VECTOR (31 downto 0);
         p_src_mat_rows_dout : IN STD_LOGIC_VECTOR (5 downto 0);
         p_src_mat_rows_empty_n : IN STD_LOGIC;
         p_src_mat_rows_read : OUT STD_LOGIC;
@@ -282,8 +285,10 @@ architecture behav of houghlines_accel is
         ACLK : IN STD_LOGIC;
         ARESET : IN STD_LOGIC;
         ACLK_EN : IN STD_LOGIC;
-        theta_array : IN STD_LOGIC_VECTOR (31 downto 0);
-        theta_array_ap_vld : IN STD_LOGIC;
+        theta_array_address0 : IN STD_LOGIC_VECTOR (4 downto 0);
+        theta_array_ce0 : IN STD_LOGIC;
+        theta_array_we0 : IN STD_LOGIC;
+        theta_array_d0 : IN STD_LOGIC_VECTOR (31 downto 0);
         img_in_address0 : IN STD_LOGIC_VECTOR (18 downto 0);
         img_in_ce0 : IN STD_LOGIC;
         img_in_q0 : OUT STD_LOGIC_VECTOR (7 downto 0);
@@ -322,8 +327,10 @@ begin
         ACLK => ap_clk,
         ARESET => ap_rst_n_inv,
         ACLK_EN => ap_const_logic_1,
-        theta_array => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array,
-        theta_array_ap_vld => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ap_vld,
+        theta_array_address0 => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_address0,
+        theta_array_ce0 => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ce0,
+        theta_array_we0 => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_we0,
+        theta_array_d0 => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_d0,
         img_in_address0 => Array2xfMat_8_0_480_640_1_U0_img_in_address0,
         img_in_ce0 => Array2xfMat_8_0_480_640_1_U0_img_in_ce0,
         img_in_q0 => img_in_q0,
@@ -392,8 +399,10 @@ begin
         imgInput_44_dout => imgInput_data_dout,
         imgInput_44_empty_n => imgInput_data_empty_n,
         imgInput_44_read => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_imgInput_44_read,
-        theta_array => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array,
-        theta_array_ap_vld => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ap_vld,
+        theta_array_address0 => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_address0,
+        theta_array_ce0 => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_ce0,
+        theta_array_we0 => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_we0,
+        theta_array_d0 => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_theta_array_d0,
         p_src_mat_rows_dout => imgInput_rows_c7_dout,
         p_src_mat_rows_empty_n => imgInput_rows_c7_empty_n,
         p_src_mat_rows_read => HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_p_src_mat_rows_read,

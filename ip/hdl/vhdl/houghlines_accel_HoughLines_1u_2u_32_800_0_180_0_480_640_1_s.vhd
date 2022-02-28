@@ -21,8 +21,10 @@ port (
     imgInput_44_dout : IN STD_LOGIC_VECTOR (7 downto 0);
     imgInput_44_empty_n : IN STD_LOGIC;
     imgInput_44_read : OUT STD_LOGIC;
-    theta_array : OUT STD_LOGIC_VECTOR (31 downto 0);
-    theta_array_ap_vld : OUT STD_LOGIC;
+    theta_array_address0 : OUT STD_LOGIC_VECTOR (4 downto 0);
+    theta_array_ce0 : OUT STD_LOGIC;
+    theta_array_we0 : OUT STD_LOGIC;
+    theta_array_d0 : OUT STD_LOGIC_VECTOR (31 downto 0);
     p_src_mat_rows_dout : IN STD_LOGIC_VECTOR (5 downto 0);
     p_src_mat_rows_empty_n : IN STD_LOGIC;
     p_src_mat_rows_read : OUT STD_LOGIC;
@@ -50,17 +52,19 @@ attribute shreg_extract : string;
     attribute fsm_encoding of ap_CS_fsm_state1 : signal is "none";
     signal p_src_mat_rows_blk_n : STD_LOGIC;
     signal p_src_mat_cols_blk_n : STD_LOGIC;
-    signal p_src_mat_rows_read_reg_56 : STD_LOGIC_VECTOR (5 downto 0);
-    signal p_src_mat_cols_read_reg_61 : STD_LOGIC_VECTOR (9 downto 0);
-    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start : STD_LOGIC;
-    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done : STD_LOGIC;
-    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_idle : STD_LOGIC;
-    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_ready : STD_LOGIC;
-    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_imgInput_44_read : STD_LOGIC;
-    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array : STD_LOGIC_VECTOR (31 downto 0);
-    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array_ap_vld : STD_LOGIC;
-    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg : STD_LOGIC := '0';
-    signal ap_block_state1_ignore_call6 : BOOLEAN;
+    signal p_src_mat_rows_read_reg_68 : STD_LOGIC_VECTOR (5 downto 0);
+    signal p_src_mat_cols_read_reg_73 : STD_LOGIC_VECTOR (9 downto 0);
+    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start : STD_LOGIC;
+    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done : STD_LOGIC;
+    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_idle : STD_LOGIC;
+    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_ready : STD_LOGIC;
+    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_imgInput_44_read : STD_LOGIC;
+    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_address0 : STD_LOGIC_VECTOR (4 downto 0);
+    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_ce0 : STD_LOGIC;
+    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_we0 : STD_LOGIC;
+    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_d0 : STD_LOGIC_VECTOR (31 downto 0);
+    signal grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg : STD_LOGIC := '0';
+    signal ap_block_state1_ignore_call9 : BOOLEAN;
     signal ap_CS_fsm_state2 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state2 : signal is "none";
     signal ap_block_state1 : BOOLEAN;
@@ -78,8 +82,10 @@ attribute shreg_extract : string;
         imgInput_44_dout : IN STD_LOGIC_VECTOR (7 downto 0);
         imgInput_44_empty_n : IN STD_LOGIC;
         imgInput_44_read : OUT STD_LOGIC;
-        theta_array : OUT STD_LOGIC_VECTOR (31 downto 0);
-        theta_array_ap_vld : OUT STD_LOGIC;
+        theta_array_address0 : OUT STD_LOGIC_VECTOR (4 downto 0);
+        theta_array_ce0 : OUT STD_LOGIC;
+        theta_array_we0 : OUT STD_LOGIC;
+        theta_array_d0 : OUT STD_LOGIC_VECTOR (31 downto 0);
         height : IN STD_LOGIC_VECTOR (5 downto 0);
         width : IN STD_LOGIC_VECTOR (9 downto 0) );
     end component;
@@ -87,21 +93,23 @@ attribute shreg_extract : string;
 
 
 begin
-    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44 : component houghlines_accel_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s
+    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56 : component houghlines_accel_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s
     port map (
         ap_clk => ap_clk,
         ap_rst => ap_rst,
-        ap_start => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start,
-        ap_done => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done,
-        ap_idle => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_idle,
-        ap_ready => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_ready,
+        ap_start => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start,
+        ap_done => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done,
+        ap_idle => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_idle,
+        ap_ready => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_ready,
         imgInput_44_dout => imgInput_44_dout,
         imgInput_44_empty_n => imgInput_44_empty_n,
-        imgInput_44_read => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_imgInput_44_read,
-        theta_array => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array,
-        theta_array_ap_vld => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array_ap_vld,
-        height => p_src_mat_rows_read_reg_56,
-        width => p_src_mat_cols_read_reg_61);
+        imgInput_44_read => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_imgInput_44_read,
+        theta_array_address0 => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_address0,
+        theta_array_ce0 => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_ce0,
+        theta_array_we0 => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_we0,
+        theta_array_d0 => grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_d0,
+        height => p_src_mat_rows_read_reg_68,
+        width => p_src_mat_cols_read_reg_73);
 
 
 
@@ -127,7 +135,7 @@ begin
             else
                 if ((ap_continue = ap_const_logic_1)) then 
                     ap_done_reg <= ap_const_logic_0;
-                elsif (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state2))) then 
+                elsif (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state2))) then 
                     ap_done_reg <= ap_const_logic_1;
                 end if; 
             end if;
@@ -135,16 +143,16 @@ begin
     end process;
 
 
-    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg_assign_proc : process(ap_clk)
+    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst = '1') then
-                grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg <= ap_const_logic_0;
+                grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg <= ap_const_logic_0;
             else
                 if ((not(((ap_start = ap_const_logic_0) or (p_src_mat_cols_empty_n = ap_const_logic_0) or (p_src_mat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-                    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg <= ap_const_logic_1;
-                elsif ((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_ready = ap_const_logic_1)) then 
-                    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg <= ap_const_logic_0;
+                    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg <= ap_const_logic_1;
+                elsif ((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_ready = ap_const_logic_1)) then 
+                    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg <= ap_const_logic_0;
                 end if; 
             end if;
         end if;
@@ -154,13 +162,13 @@ begin
     begin
         if (ap_clk'event and ap_clk = '1') then
             if ((ap_const_logic_1 = ap_CS_fsm_state1)) then
-                p_src_mat_cols_read_reg_61 <= p_src_mat_cols_dout;
-                p_src_mat_rows_read_reg_56 <= p_src_mat_rows_dout;
+                p_src_mat_cols_read_reg_73 <= p_src_mat_cols_dout;
+                p_src_mat_rows_read_reg_68 <= p_src_mat_rows_dout;
             end if;
         end if;
     end process;
 
-    ap_NS_fsm_assign_proc : process (ap_start, ap_done_reg, ap_CS_fsm, ap_CS_fsm_state1, p_src_mat_rows_empty_n, p_src_mat_cols_empty_n, grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done, ap_CS_fsm_state2)
+    ap_NS_fsm_assign_proc : process (ap_start, ap_done_reg, ap_CS_fsm, ap_CS_fsm_state1, p_src_mat_rows_empty_n, p_src_mat_cols_empty_n, grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done, ap_CS_fsm_state2)
     begin
         case ap_CS_fsm is
             when ap_ST_fsm_state1 => 
@@ -170,7 +178,7 @@ begin
                     ap_NS_fsm <= ap_ST_fsm_state1;
                 end if;
             when ap_ST_fsm_state2 => 
-                if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state2))) then
+                if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state2))) then
                     ap_NS_fsm <= ap_ST_fsm_state1;
                 else
                     ap_NS_fsm <= ap_ST_fsm_state2;
@@ -188,15 +196,15 @@ begin
     end process;
 
 
-    ap_block_state1_ignore_call6_assign_proc : process(ap_start, ap_done_reg, p_src_mat_rows_empty_n, p_src_mat_cols_empty_n)
+    ap_block_state1_ignore_call9_assign_proc : process(ap_start, ap_done_reg, p_src_mat_rows_empty_n, p_src_mat_cols_empty_n)
     begin
-                ap_block_state1_ignore_call6 <= ((ap_start = ap_const_logic_0) or (p_src_mat_cols_empty_n = ap_const_logic_0) or (p_src_mat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1));
+                ap_block_state1_ignore_call9 <= ((ap_start = ap_const_logic_0) or (p_src_mat_cols_empty_n = ap_const_logic_0) or (p_src_mat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1));
     end process;
 
 
-    ap_done_assign_proc : process(ap_done_reg, grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done, ap_CS_fsm_state2)
+    ap_done_assign_proc : process(ap_done_reg, grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done, ap_CS_fsm_state2)
     begin
-        if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state2))) then 
+        if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state2))) then 
             ap_done <= ap_const_logic_1;
         else 
             ap_done <= ap_done_reg;
@@ -214,21 +222,21 @@ begin
     end process;
 
 
-    ap_ready_assign_proc : process(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done, ap_CS_fsm_state2)
+    ap_ready_assign_proc : process(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done, ap_CS_fsm_state2)
     begin
-        if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state2))) then 
+        if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state2))) then 
             ap_ready <= ap_const_logic_1;
         else 
             ap_ready <= ap_const_logic_0;
         end if; 
     end process;
 
-    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start <= grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg;
+    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start <= grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg;
 
-    imgInput_44_read_assign_proc : process(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_imgInput_44_read, ap_CS_fsm_state2)
+    imgInput_44_read_assign_proc : process(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_imgInput_44_read, ap_CS_fsm_state2)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            imgInput_44_read <= grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_imgInput_44_read;
+            imgInput_44_read <= grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_imgInput_44_read;
         else 
             imgInput_44_read <= ap_const_logic_0;
         end if; 
@@ -274,6 +282,8 @@ begin
         end if; 
     end process;
 
-    theta_array <= grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array;
-    theta_array_ap_vld <= grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array_ap_vld;
+    theta_array_address0 <= grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_address0;
+    theta_array_ce0 <= grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_ce0;
+    theta_array_d0 <= grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_d0;
+    theta_array_we0 <= grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_we0;
 end behav;

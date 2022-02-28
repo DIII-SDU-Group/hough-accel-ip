@@ -862,7 +862,7 @@ end
         .token_out_vec(token_out_vec_9),
         .dl_detect_out(dl_in_vec[9]));
 
-    assign proc_9_data_FIFO_blk[0] = 1'b0 | (~HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0.grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44.grp_xfVoting_0_480_640_0_1_1_2u_1u_180_800_0_s_fu_12880.imgInput_44_blk_n) | (~HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0.p_src_mat_rows_blk_n) | (~HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0.p_src_mat_cols_blk_n);
+    assign proc_9_data_FIFO_blk[0] = 1'b0 | (~HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0.grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56.grp_xfVoting_0_480_640_0_1_1_2u_1u_180_800_0_s_fu_12888.imgInput_44_blk_n) | (~HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0.p_src_mat_rows_blk_n) | (~HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0.p_src_mat_cols_blk_n);
     assign proc_9_data_PIPO_blk[0] = 1'b0;
     assign proc_9_start_FIFO_blk[0] = 1'b0 | (~start_for_HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_U.if_empty_n & HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0.ap_idle & ~start_for_HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_U.if_write);
     assign proc_9_TLF_FIFO_blk[0] = 1'b0;

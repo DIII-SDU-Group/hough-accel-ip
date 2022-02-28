@@ -21,11 +21,9 @@
 //           bit 0  - ap_done (COR/TOW)
 //           bit 1  - ap_ready (COR/TOW)
 //           others - reserved
-// 0x00010 : Data signal of theta_array
-//           bit 31~0 - theta_array[31:0] (Read)
-// 0x00014 : Control signal of theta_array
-//           bit 0  - theta_array_ap_vld (Read/COR)
-//           others - reserved
+// 0x00080 ~
+// 0x000ff : Memory 'theta_array' (32 * 32b)
+//           Word n : bit [31:0] - theta_array[n]
 // 0x80000 ~
 // 0xfffff : Memory 'img_in' (307200 * 8b)
 //           Word n : bit [ 7: 0] - img_in[4n]
@@ -38,9 +36,10 @@
 #define XHOUGHLINES_ACCEL_BUS_A_ADDR_GIE              0x00004
 #define XHOUGHLINES_ACCEL_BUS_A_ADDR_IER              0x00008
 #define XHOUGHLINES_ACCEL_BUS_A_ADDR_ISR              0x0000c
-#define XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_DATA 0x00010
-#define XHOUGHLINES_ACCEL_BUS_A_BITS_THETA_ARRAY_DATA 32
-#define XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_CTRL 0x00014
+#define XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE 0x00080
+#define XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_HIGH 0x000ff
+#define XHOUGHLINES_ACCEL_BUS_A_WIDTH_THETA_ARRAY     32
+#define XHOUGHLINES_ACCEL_BUS_A_DEPTH_THETA_ARRAY     32
 #define XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE      0x80000
 #define XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_HIGH      0xfffff
 #define XHOUGHLINES_ACCEL_BUS_A_WIDTH_IMG_IN          8

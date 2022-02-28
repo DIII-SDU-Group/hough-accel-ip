@@ -18,8 +18,10 @@ module houghlines_accel_HoughLines_1u_2u_32_800_0_180_0_480_640_1_s (
         imgInput_44_dout,
         imgInput_44_empty_n,
         imgInput_44_read,
-        theta_array,
-        theta_array_ap_vld,
+        theta_array_address0,
+        theta_array_ce0,
+        theta_array_we0,
+        theta_array_d0,
         p_src_mat_rows_dout,
         p_src_mat_rows_empty_n,
         p_src_mat_rows_read,
@@ -41,8 +43,10 @@ output   ap_ready;
 input  [7:0] imgInput_44_dout;
 input   imgInput_44_empty_n;
 output   imgInput_44_read;
-output  [31:0] theta_array;
-output   theta_array_ap_vld;
+output  [4:0] theta_array_address0;
+output   theta_array_ce0;
+output   theta_array_we0;
+output  [31:0] theta_array_d0;
 input  [5:0] p_src_mat_rows_dout;
 input   p_src_mat_rows_empty_n;
 output   p_src_mat_rows_read;
@@ -62,17 +66,19 @@ reg    ap_done_reg;
 wire    ap_CS_fsm_state1;
 reg    p_src_mat_rows_blk_n;
 reg    p_src_mat_cols_blk_n;
-reg   [5:0] p_src_mat_rows_read_reg_56;
-reg   [9:0] p_src_mat_cols_read_reg_61;
-wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start;
-wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done;
-wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_idle;
-wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_ready;
-wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_imgInput_44_read;
-wire   [31:0] grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array;
-wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array_ap_vld;
-reg    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg;
-reg    ap_block_state1_ignore_call6;
+reg   [5:0] p_src_mat_rows_read_reg_68;
+reg   [9:0] p_src_mat_cols_read_reg_73;
+wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start;
+wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done;
+wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_idle;
+wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_ready;
+wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_imgInput_44_read;
+wire   [4:0] grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_address0;
+wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_ce0;
+wire    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_we0;
+wire   [31:0] grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_d0;
+reg    grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg;
+reg    ap_block_state1_ignore_call9;
 wire    ap_CS_fsm_state2;
 reg    ap_block_state1;
 reg   [1:0] ap_NS_fsm;
@@ -82,23 +88,25 @@ wire    ap_ce_reg;
 initial begin
 #0 ap_done_reg = 1'b0;
 #0 ap_CS_fsm = 2'd1;
-#0 grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg = 1'b0;
+#0 grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg = 1'b0;
 end
 
-houghlines_accel_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44(
+houghlines_accel_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start),
-    .ap_done(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done),
-    .ap_idle(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_idle),
-    .ap_ready(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_ready),
+    .ap_start(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start),
+    .ap_done(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done),
+    .ap_idle(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_idle),
+    .ap_ready(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_ready),
     .imgInput_44_dout(imgInput_44_dout),
     .imgInput_44_empty_n(imgInput_44_empty_n),
-    .imgInput_44_read(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_imgInput_44_read),
-    .theta_array(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array),
-    .theta_array_ap_vld(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array_ap_vld),
-    .height(p_src_mat_rows_read_reg_56),
-    .width(p_src_mat_cols_read_reg_61)
+    .imgInput_44_read(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_imgInput_44_read),
+    .theta_array_address0(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_address0),
+    .theta_array_ce0(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_ce0),
+    .theta_array_we0(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_we0),
+    .theta_array_d0(grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_d0),
+    .height(p_src_mat_rows_read_reg_68),
+    .width(p_src_mat_cols_read_reg_73)
 );
 
 always @ (posedge ap_clk) begin
@@ -115,7 +123,7 @@ always @ (posedge ap_clk) begin
     end else begin
         if ((ap_continue == 1'b1)) begin
             ap_done_reg <= 1'b0;
-        end else if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
+        end else if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
             ap_done_reg <= 1'b1;
         end
     end
@@ -123,25 +131,25 @@ end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg <= 1'b0;
+        grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg <= 1'b0;
     end else begin
         if ((~((ap_start == 1'b0) | (p_src_mat_cols_empty_n == 1'b0) | (p_src_mat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-            grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg <= 1'b1;
-        end else if ((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_ready == 1'b1)) begin
-            grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg <= 1'b0;
+            grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg <= 1'b1;
+        end else if ((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_ready == 1'b1)) begin
+            grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state1)) begin
-        p_src_mat_cols_read_reg_61 <= p_src_mat_cols_dout;
-        p_src_mat_rows_read_reg_56 <= p_src_mat_rows_dout;
+        p_src_mat_cols_read_reg_73 <= p_src_mat_cols_dout;
+        p_src_mat_rows_read_reg_68 <= p_src_mat_rows_dout;
     end
 end
 
 always @ (*) begin
-    if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
+    if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
         ap_done = 1'b1;
     end else begin
         ap_done = ap_done_reg;
@@ -157,7 +165,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
+    if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
         ap_ready = 1'b1;
     end else begin
         ap_ready = 1'b0;
@@ -166,7 +174,7 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state2)) begin
-        imgInput_44_read = grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_imgInput_44_read;
+        imgInput_44_read = grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_imgInput_44_read;
     end else begin
         imgInput_44_read = 1'b0;
     end
@@ -214,7 +222,7 @@ always @ (*) begin
             end
         end
         ap_ST_fsm_state2 : begin
-            if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
+            if (((grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
                 ap_NS_fsm = ap_ST_fsm_state1;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state2;
@@ -235,13 +243,17 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    ap_block_state1_ignore_call6 = ((ap_start == 1'b0) | (p_src_mat_cols_empty_n == 1'b0) | (p_src_mat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1));
+    ap_block_state1_ignore_call9 = ((ap_start == 1'b0) | (p_src_mat_cols_empty_n == 1'b0) | (p_src_mat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1));
 end
 
-assign grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start = grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_ap_start_reg;
+assign grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start = grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_ap_start_reg;
 
-assign theta_array = grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array;
+assign theta_array_address0 = grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_address0;
 
-assign theta_array_ap_vld = grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44_theta_array_ap_vld;
+assign theta_array_ce0 = grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_ce0;
+
+assign theta_array_d0 = grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_d0;
+
+assign theta_array_we0 = grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56_theta_array_we0;
 
 endmodule //houghlines_accel_HoughLines_1u_2u_32_800_0_180_0_480_640_1_s

@@ -651,7 +651,7 @@
                 9 : begin
                     case(index2)
                     1: begin
-                        if (~HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0.grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_44.grp_xfVoting_0_480_640_0_1_1_2u_1u_180_800_0_s_fu_12880.imgInput_44_blk_n) begin
+                        if (~HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0.grp_xfHoughLines_0_480_640_0_1_1_2u_1u_32_800_0_180_s_fu_56.grp_xfVoting_0_480_640_0_1_1_2u_1u_180_800_0_s_fu_12888.imgInput_44_blk_n) begin
                             if (~imgInput_data_U.if_empty_n) begin
                                 $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.imgInput_data_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0'");
                                 $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_data_U");

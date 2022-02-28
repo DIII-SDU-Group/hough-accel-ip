@@ -73,24 +73,99 @@ void XHoughlines_accel_DisableAutoRestart(XHoughlines_accel *InstancePtr) {
     XHoughlines_accel_WriteReg(InstancePtr->Bus_a_BaseAddress, XHOUGHLINES_ACCEL_BUS_A_ADDR_AP_CTRL, 0);
 }
 
-u32 XHoughlines_accel_Get_theta_array(XHoughlines_accel *InstancePtr) {
-    u32 Data;
-
+u32 XHoughlines_accel_Get_theta_array_BaseAddress(XHoughlines_accel *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XHoughlines_accel_ReadReg(InstancePtr->Bus_a_BaseAddress, XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_DATA);
-    return Data;
+    return (InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE);
 }
 
-u32 XHoughlines_accel_Get_theta_array_vld(XHoughlines_accel *InstancePtr) {
-    u32 Data;
-
+u32 XHoughlines_accel_Get_theta_array_HighAddress(XHoughlines_accel *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XHoughlines_accel_ReadReg(InstancePtr->Bus_a_BaseAddress, XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_CTRL);
-    return Data & 0x1;
+    return (InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_HIGH);
+}
+
+u32 XHoughlines_accel_Get_theta_array_TotalBytes(XHoughlines_accel *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return (XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_HIGH - XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE + 1);
+}
+
+u32 XHoughlines_accel_Get_theta_array_BitWidth(XHoughlines_accel *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return XHOUGHLINES_ACCEL_BUS_A_WIDTH_THETA_ARRAY;
+}
+
+u32 XHoughlines_accel_Get_theta_array_Depth(XHoughlines_accel *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return XHOUGHLINES_ACCEL_BUS_A_DEPTH_THETA_ARRAY;
+}
+
+u32 XHoughlines_accel_Write_theta_array_Words(XHoughlines_accel *InstancePtr, int offset, word_type *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length)*4 > (XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_HIGH - XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(int *)(InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE + (offset + i)*4) = *(data + i);
+    }
+    return length;
+}
+
+u32 XHoughlines_accel_Read_theta_array_Words(XHoughlines_accel *InstancePtr, int offset, word_type *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length)*4 > (XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_HIGH - XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(data + i) = *(int *)(InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE + (offset + i)*4);
+    }
+    return length;
+}
+
+u32 XHoughlines_accel_Write_theta_array_Bytes(XHoughlines_accel *InstancePtr, int offset, char *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length) > (XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_HIGH - XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(char *)(InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE + offset + i) = *(data + i);
+    }
+    return length;
+}
+
+u32 XHoughlines_accel_Read_theta_array_Bytes(XHoughlines_accel *InstancePtr, int offset, char *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length) > (XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_HIGH - XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(data + i) = *(char *)(InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_BASE + offset + i);
+    }
+    return length;
 }
 
 u32 XHoughlines_accel_Get_img_in_BaseAddress(XHoughlines_accel *InstancePtr) {

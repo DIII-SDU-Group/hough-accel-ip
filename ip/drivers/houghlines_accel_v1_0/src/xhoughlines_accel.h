@@ -87,8 +87,15 @@ u32 XHoughlines_accel_IsReady(XHoughlines_accel *InstancePtr);
 void XHoughlines_accel_EnableAutoRestart(XHoughlines_accel *InstancePtr);
 void XHoughlines_accel_DisableAutoRestart(XHoughlines_accel *InstancePtr);
 
-u32 XHoughlines_accel_Get_theta_array(XHoughlines_accel *InstancePtr);
-u32 XHoughlines_accel_Get_theta_array_vld(XHoughlines_accel *InstancePtr);
+u32 XHoughlines_accel_Get_theta_array_BaseAddress(XHoughlines_accel *InstancePtr);
+u32 XHoughlines_accel_Get_theta_array_HighAddress(XHoughlines_accel *InstancePtr);
+u32 XHoughlines_accel_Get_theta_array_TotalBytes(XHoughlines_accel *InstancePtr);
+u32 XHoughlines_accel_Get_theta_array_BitWidth(XHoughlines_accel *InstancePtr);
+u32 XHoughlines_accel_Get_theta_array_Depth(XHoughlines_accel *InstancePtr);
+u32 XHoughlines_accel_Write_theta_array_Words(XHoughlines_accel *InstancePtr, int offset, word_type *data, int length);
+u32 XHoughlines_accel_Read_theta_array_Words(XHoughlines_accel *InstancePtr, int offset, word_type *data, int length);
+u32 XHoughlines_accel_Write_theta_array_Bytes(XHoughlines_accel *InstancePtr, int offset, char *data, int length);
+u32 XHoughlines_accel_Read_theta_array_Bytes(XHoughlines_accel *InstancePtr, int offset, char *data, int length);
 u32 XHoughlines_accel_Get_img_in_BaseAddress(XHoughlines_accel *InstancePtr);
 u32 XHoughlines_accel_Get_img_in_HighAddress(XHoughlines_accel *InstancePtr);
 u32 XHoughlines_accel_Get_img_in_TotalBytes(XHoughlines_accel *InstancePtr);

@@ -49,6 +49,6 @@
 #define PTR_WIDTH 8
 
 void houghlines_accel(
-		ap_uint<PTR_WIDTH> img_in[307200], float* theta_array);
+		ap_uint<PTR_WIDTH> img_in[307200], float theta_array[32]);
 
 #endif // _XF_HOUGHLINES_CONFIG_H_
