@@ -92,7 +92,7 @@ attribute shreg_extract : string;
 
 
 begin
-    mul_mul_10ns_9ns_19_4_1_U18 : component houghlines_accel_mul_mul_10ns_9ns_19_4_1
+    mul_mul_10ns_9ns_19_4_1_U12 : component houghlines_accel_mul_mul_10ns_9ns_19_4_1
     generic map (
         ID => 1,
         NUM_STAGE => 4,

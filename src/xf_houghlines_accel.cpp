@@ -21,7 +21,7 @@ static constexpr int __XF_DEPTH_Y = LINESMAX;
 static constexpr int __XF_DEPTH_X = LINESMAX;
 
 void houghlines_accel(
-    ap_uint<PTR_WIDTH>* img_in, float* theta_array) {
+    ap_uint<PTR_WIDTH> img_in[307200], float* theta_array) {
 // clang-format off
 #pragma HLS TOP
 #pragma HLS INTERFACE s_axilite bundle=BUS_A port=img_in

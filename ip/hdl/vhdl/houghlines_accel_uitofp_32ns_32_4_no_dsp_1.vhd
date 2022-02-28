@@ -7,7 +7,7 @@ use ieee.std_logic_1164.all;
 
 entity houghlines_accel_uitofp_32ns_32_4_no_dsp_1 is
     generic (
-        ID         : integer := 2422;
+        ID         : integer := 2414;
         NUM_STAGE  : integer := 4;
         din0_WIDTH : integer := 32;
         dout_WIDTH : integer := 32

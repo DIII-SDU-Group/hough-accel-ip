@@ -73,23 +73,6 @@ void XHoughlines_accel_DisableAutoRestart(XHoughlines_accel *InstancePtr) {
     XHoughlines_accel_WriteReg(InstancePtr->Bus_a_BaseAddress, XHOUGHLINES_ACCEL_BUS_A_ADDR_AP_CTRL, 0);
 }
 
-void XHoughlines_accel_Set_img_in(XHoughlines_accel *InstancePtr, u32 Data) {
-    Xil_AssertVoid(InstancePtr != NULL);
-    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    XHoughlines_accel_WriteReg(InstancePtr->Bus_a_BaseAddress, XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_DATA, Data);
-}
-
-u32 XHoughlines_accel_Get_img_in(XHoughlines_accel *InstancePtr) {
-    u32 Data;
-
-    Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    Data = XHoughlines_accel_ReadReg(InstancePtr->Bus_a_BaseAddress, XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_DATA);
-    return Data;
-}
-
 u32 XHoughlines_accel_Get_theta_array(XHoughlines_accel *InstancePtr) {
     u32 Data;
 
@@ -108,6 +91,101 @@ u32 XHoughlines_accel_Get_theta_array_vld(XHoughlines_accel *InstancePtr) {
 
     Data = XHoughlines_accel_ReadReg(InstancePtr->Bus_a_BaseAddress, XHOUGHLINES_ACCEL_BUS_A_ADDR_THETA_ARRAY_CTRL);
     return Data & 0x1;
+}
+
+u32 XHoughlines_accel_Get_img_in_BaseAddress(XHoughlines_accel *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return (InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE);
+}
+
+u32 XHoughlines_accel_Get_img_in_HighAddress(XHoughlines_accel *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return (InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_HIGH);
+}
+
+u32 XHoughlines_accel_Get_img_in_TotalBytes(XHoughlines_accel *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return (XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_HIGH - XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE + 1);
+}
+
+u32 XHoughlines_accel_Get_img_in_BitWidth(XHoughlines_accel *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return XHOUGHLINES_ACCEL_BUS_A_WIDTH_IMG_IN;
+}
+
+u32 XHoughlines_accel_Get_img_in_Depth(XHoughlines_accel *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return XHOUGHLINES_ACCEL_BUS_A_DEPTH_IMG_IN;
+}
+
+u32 XHoughlines_accel_Write_img_in_Words(XHoughlines_accel *InstancePtr, int offset, word_type *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length)*4 > (XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_HIGH - XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(int *)(InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE + (offset + i)*4) = *(data + i);
+    }
+    return length;
+}
+
+u32 XHoughlines_accel_Read_img_in_Words(XHoughlines_accel *InstancePtr, int offset, word_type *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length)*4 > (XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_HIGH - XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(data + i) = *(int *)(InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE + (offset + i)*4);
+    }
+    return length;
+}
+
+u32 XHoughlines_accel_Write_img_in_Bytes(XHoughlines_accel *InstancePtr, int offset, char *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length) > (XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_HIGH - XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(char *)(InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE + offset + i) = *(data + i);
+    }
+    return length;
+}
+
+u32 XHoughlines_accel_Read_img_in_Bytes(XHoughlines_accel *InstancePtr, int offset, char *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length) > (XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_HIGH - XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(data + i) = *(char *)(InstancePtr->Bus_a_BaseAddress + XHOUGHLINES_ACCEL_BUS_A_ADDR_IMG_IN_BASE + offset + i);
+    }
+    return length;
 }
 
 void XHoughlines_accel_InterruptGlobalEnable(XHoughlines_accel *InstancePtr) {

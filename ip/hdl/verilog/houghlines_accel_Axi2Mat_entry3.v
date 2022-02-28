@@ -18,12 +18,8 @@ module houghlines_accel_Axi2Mat_entry3 (
         ap_ready,
         start_out,
         start_write,
-        p_read,
         rows,
         cols,
-        p_read_out_din,
-        p_read_out_full_n,
-        p_read_out_write,
         rows_out_din,
         rows_out_full_n,
         rows_out_write,
@@ -44,12 +40,8 @@ output   ap_idle;
 output   ap_ready;
 output   start_out;
 output   start_write;
-input  [7:0] p_read;
 input  [5:0] rows;
 input  [9:0] cols;
-output  [7:0] p_read_out_din;
-input   p_read_out_full_n;
-output   p_read_out_write;
 output  [5:0] rows_out_din;
 input   rows_out_full_n;
 output   rows_out_write;
@@ -60,7 +52,6 @@ output   cols_out_write;
 reg ap_done;
 reg ap_idle;
 reg start_write;
-reg p_read_out_write;
 reg rows_out_write;
 reg cols_out_write;
 
@@ -70,7 +61,6 @@ reg    ap_done_reg;
 (* fsm_encoding = "none" *) reg   [0:0] ap_CS_fsm;
 wire    ap_CS_fsm_state1;
 reg    internal_ap_ready;
-reg    p_read_out_blk_n;
 reg    rows_out_blk_n;
 reg    cols_out_blk_n;
 reg    ap_block_state1;
@@ -98,7 +88,7 @@ always @ (posedge ap_clk) begin
     end else begin
         if ((ap_continue == 1'b1)) begin
             ap_done_reg <= 1'b0;
-        end else if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (p_read_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        end else if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
             ap_done_reg <= 1'b1;
         end
     end
@@ -117,7 +107,7 @@ always @ (posedge ap_clk) begin
 end
 
 always @ (*) begin
-    if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (p_read_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+    if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
         ap_done = 1'b1;
     end else begin
         ap_done = ap_done_reg;
@@ -141,7 +131,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (p_read_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+    if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
         cols_out_write = 1'b1;
     end else begin
         cols_out_write = 1'b0;
@@ -149,26 +139,10 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (p_read_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+    if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
         internal_ap_ready = 1'b1;
     end else begin
         internal_ap_ready = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if ((~((real_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        p_read_out_blk_n = p_read_out_full_n;
-    end else begin
-        p_read_out_blk_n = 1'b1;
-    end
-end
-
-always @ (*) begin
-    if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (p_read_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        p_read_out_write = 1'b1;
-    end else begin
-        p_read_out_write = 1'b0;
     end
 end
 
@@ -189,7 +163,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (p_read_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+    if ((~((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
         rows_out_write = 1'b1;
     end else begin
         rows_out_write = 1'b0;
@@ -218,14 +192,12 @@ end
 assign ap_CS_fsm_state1 = ap_CS_fsm[32'd0];
 
 always @ (*) begin
-    ap_block_state1 = ((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (p_read_out_full_n == 1'b0) | (ap_done_reg == 1'b1));
+    ap_block_state1 = ((real_start == 1'b0) | (cols_out_full_n == 1'b0) | (rows_out_full_n == 1'b0) | (ap_done_reg == 1'b1));
 end
 
 assign ap_ready = internal_ap_ready;
 
 assign cols_out_din = cols;
-
-assign p_read_out_din = p_read;
 
 assign rows_out_din = rows;
 

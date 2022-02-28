@@ -21,12 +21,8 @@ port (
     ap_ready : OUT STD_LOGIC;
     start_out : OUT STD_LOGIC;
     start_write : OUT STD_LOGIC;
-    p_read : IN STD_LOGIC_VECTOR (7 downto 0);
     rows : IN STD_LOGIC_VECTOR (5 downto 0);
     cols : IN STD_LOGIC_VECTOR (9 downto 0);
-    p_read_out_din : OUT STD_LOGIC_VECTOR (7 downto 0);
-    p_read_out_full_n : IN STD_LOGIC;
-    p_read_out_write : OUT STD_LOGIC;
     rows_out_din : OUT STD_LOGIC_VECTOR (5 downto 0);
     rows_out_full_n : IN STD_LOGIC;
     rows_out_write : OUT STD_LOGIC;
@@ -53,7 +49,6 @@ attribute shreg_extract : string;
     signal ap_CS_fsm_state1 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state1 : signal is "none";
     signal internal_ap_ready : STD_LOGIC;
-    signal p_read_out_blk_n : STD_LOGIC;
     signal rows_out_blk_n : STD_LOGIC;
     signal cols_out_blk_n : STD_LOGIC;
     signal ap_block_state1 : BOOLEAN;
@@ -86,7 +81,7 @@ begin
             else
                 if ((ap_continue = ap_const_logic_1)) then 
                     ap_done_reg <= ap_const_logic_0;
-                elsif ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (p_read_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
+                elsif ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
                     ap_done_reg <= ap_const_logic_1;
                 end if; 
             end if;
@@ -110,7 +105,7 @@ begin
     end process;
 
 
-    ap_NS_fsm_assign_proc : process (real_start, ap_done_reg, ap_CS_fsm, ap_CS_fsm_state1, p_read_out_full_n, rows_out_full_n, cols_out_full_n)
+    ap_NS_fsm_assign_proc : process (real_start, ap_done_reg, ap_CS_fsm, ap_CS_fsm_state1, rows_out_full_n, cols_out_full_n)
     begin
         case ap_CS_fsm is
             when ap_ST_fsm_state1 => 
@@ -121,15 +116,15 @@ begin
     end process;
     ap_CS_fsm_state1 <= ap_CS_fsm(0);
 
-    ap_block_state1_assign_proc : process(real_start, ap_done_reg, p_read_out_full_n, rows_out_full_n, cols_out_full_n)
+    ap_block_state1_assign_proc : process(real_start, ap_done_reg, rows_out_full_n, cols_out_full_n)
     begin
-                ap_block_state1 <= ((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (p_read_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1));
+                ap_block_state1 <= ((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1));
     end process;
 
 
-    ap_done_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, p_read_out_full_n, rows_out_full_n, cols_out_full_n)
+    ap_done_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, rows_out_full_n, cols_out_full_n)
     begin
-        if ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (p_read_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
+        if ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
             ap_done <= ap_const_logic_1;
         else 
             ap_done <= ap_done_reg;
@@ -159,9 +154,9 @@ begin
 
     cols_out_din <= cols;
 
-    cols_out_write_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, p_read_out_full_n, rows_out_full_n, cols_out_full_n)
+    cols_out_write_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, rows_out_full_n, cols_out_full_n)
     begin
-        if ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (p_read_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
+        if ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
             cols_out_write <= ap_const_logic_1;
         else 
             cols_out_write <= ap_const_logic_0;
@@ -169,33 +164,12 @@ begin
     end process;
 
 
-    internal_ap_ready_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, p_read_out_full_n, rows_out_full_n, cols_out_full_n)
+    internal_ap_ready_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, rows_out_full_n, cols_out_full_n)
     begin
-        if ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (p_read_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
+        if ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
             internal_ap_ready <= ap_const_logic_1;
         else 
             internal_ap_ready <= ap_const_logic_0;
-        end if; 
-    end process;
-
-
-    p_read_out_blk_n_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, p_read_out_full_n)
-    begin
-        if ((not(((real_start = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            p_read_out_blk_n <= p_read_out_full_n;
-        else 
-            p_read_out_blk_n <= ap_const_logic_1;
-        end if; 
-    end process;
-
-    p_read_out_din <= p_read;
-
-    p_read_out_write_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, p_read_out_full_n, rows_out_full_n, cols_out_full_n)
-    begin
-        if ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (p_read_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            p_read_out_write <= ap_const_logic_1;
-        else 
-            p_read_out_write <= ap_const_logic_0;
         end if; 
     end process;
 
@@ -221,9 +195,9 @@ begin
 
     rows_out_din <= rows;
 
-    rows_out_write_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, p_read_out_full_n, rows_out_full_n, cols_out_full_n)
+    rows_out_write_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, rows_out_full_n, cols_out_full_n)
     begin
-        if ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (p_read_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
+        if ((not(((real_start = ap_const_logic_0) or (cols_out_full_n = ap_const_logic_0) or (rows_out_full_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
             rows_out_write <= ap_const_logic_1;
         else 
             rows_out_write <= ap_const_logic_0;

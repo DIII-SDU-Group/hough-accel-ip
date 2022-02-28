@@ -8,7 +8,11 @@
 `timescale 1 ns / 1 ps 
 
 module houghlines_accel_Axi2Mat (
-        p_read,
+        img_in_address0,
+        img_in_ce0,
+        img_in_d0,
+        img_in_q0,
+        img_in_we0,
         imgInput_44_din,
         imgInput_44_full_n,
         imgInput_44_write,
@@ -16,7 +20,6 @@ module houghlines_accel_Axi2Mat (
         cols,
         ap_clk,
         ap_rst,
-        p_read_ap_vld,
         rows_ap_vld,
         cols_ap_vld,
         ap_start,
@@ -27,7 +30,11 @@ module houghlines_accel_Axi2Mat (
 );
 
 
-input  [7:0] p_read;
+output  [18:0] img_in_address0;
+output   img_in_ce0;
+output  [7:0] img_in_d0;
+input  [7:0] img_in_q0;
+output   img_in_we0;
 output  [7:0] imgInput_44_din;
 input   imgInput_44_full_n;
 output   imgInput_44_write;
@@ -35,7 +42,6 @@ input  [5:0] rows;
 input  [9:0] cols;
 input   ap_clk;
 input   ap_rst;
-input   p_read_ap_vld;
 input   rows_ap_vld;
 input   cols_ap_vld;
 input   ap_start;
@@ -51,8 +57,6 @@ wire    Axi2Mat_entry3_U0_ap_idle;
 wire    Axi2Mat_entry3_U0_ap_ready;
 wire    Axi2Mat_entry3_U0_start_out;
 wire    Axi2Mat_entry3_U0_start_write;
-wire   [7:0] Axi2Mat_entry3_U0_p_read_out_din;
-wire    Axi2Mat_entry3_U0_p_read_out_write;
 wire   [5:0] Axi2Mat_entry3_U0_rows_out_din;
 wire    Axi2Mat_entry3_U0_rows_out_write;
 wire   [9:0] Axi2Mat_entry3_U0_cols_out_din;
@@ -64,11 +68,8 @@ wire    Axi2Mat_entry21_U0_ap_idle;
 wire    Axi2Mat_entry21_U0_ap_ready;
 wire    Axi2Mat_entry21_U0_start_out;
 wire    Axi2Mat_entry21_U0_start_write;
-wire    Axi2Mat_entry21_U0_p_read_read;
 wire    Axi2Mat_entry21_U0_rows_read;
 wire    Axi2Mat_entry21_U0_cols_read;
-wire   [7:0] Axi2Mat_entry21_U0_img_in_out_din;
-wire    Axi2Mat_entry21_U0_img_in_out_write;
 wire   [5:0] Axi2Mat_entry21_U0_rows_out_din;
 wire    Axi2Mat_entry21_U0_rows_out_write;
 wire   [9:0] Axi2Mat_entry21_U0_cols_out_din;
@@ -110,7 +111,8 @@ wire    Axi2AxiStream_U0_ap_done;
 wire    Axi2AxiStream_U0_ap_continue;
 wire    Axi2AxiStream_U0_ap_idle;
 wire    Axi2AxiStream_U0_ap_ready;
-wire    Axi2AxiStream_U0_img_in_read;
+wire   [18:0] Axi2AxiStream_U0_img_in_address0;
+wire    Axi2AxiStream_U0_img_in_ce0;
 wire   [7:0] Axi2AxiStream_U0_ldata1_din;
 wire    Axi2AxiStream_U0_ldata1_write;
 wire    AxiStream2MatStream_U0_ap_start;
@@ -125,18 +127,12 @@ wire    AxiStream2MatStream_U0_rows_read;
 wire    AxiStream2MatStream_U0_cols_bound_per_npc_read;
 wire    AxiStream2MatStream_U0_last_blk_width_read;
 wire    ap_sync_continue;
-wire    p_read_c_full_n;
-wire   [7:0] p_read_c_dout;
-wire    p_read_c_empty_n;
 wire    rows_c1_full_n;
 wire   [5:0] rows_c1_dout;
 wire    rows_c1_empty_n;
 wire    cols_c2_full_n;
 wire   [9:0] cols_c2_dout;
 wire    cols_c2_empty_n;
-wire    img_in_c_full_n;
-wire   [7:0] img_in_c_dout;
-wire    img_in_c_empty_n;
 wire    rows_c_full_n;
 wire   [5:0] rows_c_dout;
 wire    rows_c_empty_n;
@@ -165,6 +161,8 @@ reg    ap_sync_reg_Axi2Mat_entry3_U0_ap_ready;
 wire    ap_sync_Axi2Mat_entry3_U0_ap_ready;
 reg    ap_sync_reg_last_blk_pxl_width_U0_ap_ready;
 wire    ap_sync_last_blk_pxl_width_U0_ap_ready;
+reg    ap_sync_reg_Axi2AxiStream_U0_ap_ready;
+wire    ap_sync_Axi2AxiStream_U0_ap_ready;
 wire   [0:0] start_for_Axi2Mat_entry21_U0_din;
 wire    start_for_Axi2Mat_entry21_U0_full_n;
 wire   [0:0] start_for_Axi2Mat_entry21_U0_dout;
@@ -191,6 +189,7 @@ wire    ap_ce_reg;
 initial begin
 #0 ap_sync_reg_Axi2Mat_entry3_U0_ap_ready = 1'b0;
 #0 ap_sync_reg_last_blk_pxl_width_U0_ap_ready = 1'b0;
+#0 ap_sync_reg_Axi2AxiStream_U0_ap_ready = 1'b0;
 end
 
 houghlines_accel_Axi2Mat_entry3 Axi2Mat_entry3_U0(
@@ -204,12 +203,8 @@ houghlines_accel_Axi2Mat_entry3 Axi2Mat_entry3_U0(
     .ap_ready(Axi2Mat_entry3_U0_ap_ready),
     .start_out(Axi2Mat_entry3_U0_start_out),
     .start_write(Axi2Mat_entry3_U0_start_write),
-    .p_read(p_read),
     .rows(rows),
     .cols(cols),
-    .p_read_out_din(Axi2Mat_entry3_U0_p_read_out_din),
-    .p_read_out_full_n(p_read_c_full_n),
-    .p_read_out_write(Axi2Mat_entry3_U0_p_read_out_write),
     .rows_out_din(Axi2Mat_entry3_U0_rows_out_din),
     .rows_out_full_n(rows_c1_full_n),
     .rows_out_write(Axi2Mat_entry3_U0_rows_out_write),
@@ -229,18 +224,12 @@ houghlines_accel_Axi2Mat_entry21 Axi2Mat_entry21_U0(
     .ap_ready(Axi2Mat_entry21_U0_ap_ready),
     .start_out(Axi2Mat_entry21_U0_start_out),
     .start_write(Axi2Mat_entry21_U0_start_write),
-    .p_read_dout(p_read_c_dout),
-    .p_read_empty_n(p_read_c_empty_n),
-    .p_read_read(Axi2Mat_entry21_U0_p_read_read),
     .rows_dout(rows_c1_dout),
     .rows_empty_n(rows_c1_empty_n),
     .rows_read(Axi2Mat_entry21_U0_rows_read),
     .cols_dout(cols_c2_dout),
     .cols_empty_n(cols_c2_empty_n),
     .cols_read(Axi2Mat_entry21_U0_cols_read),
-    .img_in_out_din(Axi2Mat_entry21_U0_img_in_out_din),
-    .img_in_out_full_n(img_in_c_full_n),
-    .img_in_out_write(Axi2Mat_entry21_U0_img_in_out_write),
     .rows_out_din(Axi2Mat_entry21_U0_rows_out_din),
     .rows_out_full_n(rows_c_full_n),
     .rows_out_write(Axi2Mat_entry21_U0_rows_out_write),
@@ -309,9 +298,9 @@ houghlines_accel_Axi2AxiStream Axi2AxiStream_U0(
     .ap_continue(Axi2AxiStream_U0_ap_continue),
     .ap_idle(Axi2AxiStream_U0_ap_idle),
     .ap_ready(Axi2AxiStream_U0_ap_ready),
-    .img_in_dout(img_in_c_dout),
-    .img_in_empty_n(img_in_c_empty_n),
-    .img_in_read(Axi2AxiStream_U0_img_in_read),
+    .img_in_address0(Axi2AxiStream_U0_img_in_address0),
+    .img_in_ce0(Axi2AxiStream_U0_img_in_ce0),
+    .img_in_q0(img_in_q0),
     .ldata1_din(Axi2AxiStream_U0_ldata1_din),
     .ldata1_full_n(ldata_full_n),
     .ldata1_write(Axi2AxiStream_U0_ldata1_write),
@@ -343,19 +332,6 @@ houghlines_accel_AxiStream2MatStream AxiStream2MatStream_U0(
     .last_blk_width_read(AxiStream2MatStream_U0_last_blk_width_read)
 );
 
-houghlines_accel_fifo_w8_d2_S p_read_c_U(
-    .clk(ap_clk),
-    .reset(ap_rst),
-    .if_read_ce(1'b1),
-    .if_write_ce(1'b1),
-    .if_din(Axi2Mat_entry3_U0_p_read_out_din),
-    .if_full_n(p_read_c_full_n),
-    .if_write(Axi2Mat_entry3_U0_p_read_out_write),
-    .if_dout(p_read_c_dout),
-    .if_empty_n(p_read_c_empty_n),
-    .if_read(Axi2Mat_entry21_U0_p_read_read)
-);
-
 houghlines_accel_fifo_w6_d2_S rows_c1_U(
     .clk(ap_clk),
     .reset(ap_rst),
@@ -380,19 +356,6 @@ houghlines_accel_fifo_w10_d2_S cols_c2_U(
     .if_dout(cols_c2_dout),
     .if_empty_n(cols_c2_empty_n),
     .if_read(Axi2Mat_entry21_U0_cols_read)
-);
-
-houghlines_accel_fifo_w8_d4_S img_in_c_U(
-    .clk(ap_clk),
-    .reset(ap_rst),
-    .if_read_ce(1'b1),
-    .if_write_ce(1'b1),
-    .if_din(Axi2Mat_entry21_U0_img_in_out_din),
-    .if_full_n(img_in_c_full_n),
-    .if_write(Axi2Mat_entry21_U0_img_in_out_write),
-    .if_dout(img_in_c_dout),
-    .if_empty_n(img_in_c_empty_n),
-    .if_read(Axi2AxiStream_U0_img_in_read)
 );
 
 houghlines_accel_fifo_w6_d2_S rows_c_U(
@@ -540,6 +503,18 @@ houghlines_accel_start_for_AxiStream2MatStream_U0 start_for_AxiStream2MatStream_
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
+        ap_sync_reg_Axi2AxiStream_U0_ap_ready <= 1'b0;
+    end else begin
+        if (((ap_sync_ready & ap_start) == 1'b1)) begin
+            ap_sync_reg_Axi2AxiStream_U0_ap_ready <= 1'b0;
+        end else begin
+            ap_sync_reg_Axi2AxiStream_U0_ap_ready <= ap_sync_Axi2AxiStream_U0_ap_ready;
+        end
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if (ap_rst == 1'b1) begin
         ap_sync_reg_Axi2Mat_entry3_U0_ap_ready <= 1'b0;
     end else begin
         if (((ap_sync_ready & ap_start) == 1'b1)) begin
@@ -564,7 +539,7 @@ end
 
 assign Axi2AxiStream_U0_ap_continue = 1'b1;
 
-assign Axi2AxiStream_U0_ap_start = axibound_V_empty_n;
+assign Axi2AxiStream_U0_ap_start = ((ap_sync_reg_Axi2AxiStream_U0_ap_ready ^ 1'b1) & axibound_V_empty_n & ap_start);
 
 assign Axi2AxiStream_U0_start_full_n = 1'b1;
 
@@ -612,6 +587,8 @@ assign ap_idle = (last_blk_pxl_width_U0_ap_idle & (axibound_V_empty_n ^ 1'b1) & 
 
 assign ap_ready = ap_sync_ready;
 
+assign ap_sync_Axi2AxiStream_U0_ap_ready = (ap_sync_reg_Axi2AxiStream_U0_ap_ready | Axi2AxiStream_U0_ap_ready);
+
 assign ap_sync_Axi2Mat_entry3_U0_ap_ready = (ap_sync_reg_Axi2Mat_entry3_U0_ap_ready | Axi2Mat_entry3_U0_ap_ready);
 
 assign ap_sync_continue = ap_continue;
@@ -620,11 +597,19 @@ assign ap_sync_done = AxiStream2MatStream_U0_ap_done;
 
 assign ap_sync_last_blk_pxl_width_U0_ap_ready = (last_blk_pxl_width_U0_ap_ready | ap_sync_reg_last_blk_pxl_width_U0_ap_ready);
 
-assign ap_sync_ready = (ap_sync_last_blk_pxl_width_U0_ap_ready & ap_sync_Axi2Mat_entry3_U0_ap_ready);
+assign ap_sync_ready = (ap_sync_last_blk_pxl_width_U0_ap_ready & ap_sync_Axi2Mat_entry3_U0_ap_ready & ap_sync_Axi2AxiStream_U0_ap_ready);
 
 assign imgInput_44_din = AxiStream2MatStream_U0_imgInput_44_din;
 
 assign imgInput_44_write = AxiStream2MatStream_U0_imgInput_44_write;
+
+assign img_in_address0 = Axi2AxiStream_U0_img_in_address0;
+
+assign img_in_ce0 = Axi2AxiStream_U0_img_in_ce0;
+
+assign img_in_d0 = 8'd0;
+
+assign img_in_we0 = 1'b0;
 
 assign last_blk_pxl_width_U0_ap_continue = 1'b1;
 

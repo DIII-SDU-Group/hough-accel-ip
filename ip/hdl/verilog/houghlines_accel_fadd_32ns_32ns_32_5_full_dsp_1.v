@@ -7,7 +7,7 @@
 
 module houghlines_accel_fadd_32ns_32ns_32_5_full_dsp_1
 #(parameter
-    ID         = 2420,
+    ID         = 2412,
     NUM_STAGE  = 5,
     din0_WIDTH = 32,
     din1_WIDTH = 32,

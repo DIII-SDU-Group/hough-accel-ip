@@ -6576,7 +6576,7 @@ begin
         ap_return_0 => grp_get_maxval_index_800_s_fu_5335_ap_return_0,
         ap_return_1 => grp_get_maxval_index_800_s_fu_5335_ap_return_1);
 
-    fadd_32ns_32ns_32_5_full_dsp_1_U2420 : component houghlines_accel_fadd_32ns_32ns_32_5_full_dsp_1
+    fadd_32ns_32ns_32_5_full_dsp_1_U2412 : component houghlines_accel_fadd_32ns_32ns_32_5_full_dsp_1
     generic map (
         ID => 1,
         NUM_STAGE => 5,
@@ -6591,7 +6591,7 @@ begin
         ce => ap_const_logic_1,
         dout => grp_fu_5342_p2);
 
-    fmul_32ns_32ns_32_4_max_dsp_1_U2421 : component houghlines_accel_fmul_32ns_32ns_32_4_max_dsp_1
+    fmul_32ns_32ns_32_4_max_dsp_1_U2413 : component houghlines_accel_fmul_32ns_32ns_32_4_max_dsp_1
     generic map (
         ID => 1,
         NUM_STAGE => 4,
@@ -6606,7 +6606,7 @@ begin
         ce => ap_const_logic_1,
         dout => grp_fu_5347_p2);
 
-    uitofp_32ns_32_4_no_dsp_1_U2422 : component houghlines_accel_uitofp_32ns_32_4_no_dsp_1
+    uitofp_32ns_32_4_no_dsp_1_U2414 : component houghlines_accel_uitofp_32ns_32_4_no_dsp_1
     generic map (
         ID => 1,
         NUM_STAGE => 4,
@@ -6619,7 +6619,7 @@ begin
         ce => ap_const_logic_1,
         dout => grp_fu_5352_p1);
 
-    mux_1808_12_1_1_U2423 : component houghlines_accel_mux_1808_12_1_1
+    mux_1808_12_1_1_U2415 : component houghlines_accel_mux_1808_12_1_1
     generic map (
         ID => 1,
         NUM_STAGE => 1,
@@ -6989,7 +6989,7 @@ begin
         din180 => n_V_1_reg_4060,
         dout => maxfinal_V_1_fu_8459_p182);
 
-    mux_1808_12_1_1_U2424 : component houghlines_accel_mux_1808_12_1_1
+    mux_1808_12_1_1_U2416 : component houghlines_accel_mux_1808_12_1_1
     generic map (
         ID => 1,
         NUM_STAGE => 1,

@@ -257,7 +257,7 @@ attribute shreg_extract : string;
 
 
 begin
-    mul_mul_10ns_9ns_19_4_1_U29 : component houghlines_accel_mul_mul_10ns_9ns_19_4_1
+    mul_mul_10ns_9ns_19_4_1_U23 : component houghlines_accel_mul_mul_10ns_9ns_19_4_1
     generic map (
         ID => 1,
         NUM_STAGE => 4,

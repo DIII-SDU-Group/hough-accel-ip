@@ -5,7 +5,7 @@
 `timescale 1ns/1ps
 module houghlines_accel_BUS_A_s_axi
 #(parameter
-    C_S_AXI_ADDR_WIDTH = 5,
+    C_S_AXI_ADDR_WIDTH = 20,
     C_S_AXI_DATA_WIDTH = 32
 )(
     input  wire                          ACLK,
@@ -29,54 +29,58 @@ module houghlines_accel_BUS_A_s_axi
     output wire                          RVALID,
     input  wire                          RREADY,
     output wire                          interrupt,
-    output wire [7:0]                    img_in,
     input  wire [31:0]                   theta_array,
     input  wire                          theta_array_ap_vld,
+    input  wire [18:0]                   img_in_address0,
+    input  wire                          img_in_ce0,
+    output wire [7:0]                    img_in_q0,
     output wire                          ap_start,
     input  wire                          ap_done,
     input  wire                          ap_ready,
     input  wire                          ap_idle
 );
 //------------------------Address Info-------------------
-// 0x00 : Control signals
-//        bit 0  - ap_start (Read/Write/COH)
-//        bit 1  - ap_done (Read/COR)
-//        bit 2  - ap_idle (Read)
-//        bit 3  - ap_ready (Read)
-//        bit 7  - auto_restart (Read/Write)
-//        others - reserved
-// 0x04 : Global Interrupt Enable Register
-//        bit 0  - Global Interrupt Enable (Read/Write)
-//        others - reserved
-// 0x08 : IP Interrupt Enable Register (Read/Write)
-//        bit 0  - enable ap_done interrupt (Read/Write)
-//        bit 1  - enable ap_ready interrupt (Read/Write)
-//        others - reserved
-// 0x0c : IP Interrupt Status Register (Read/TOW)
-//        bit 0  - ap_done (COR/TOW)
-//        bit 1  - ap_ready (COR/TOW)
-//        others - reserved
-// 0x10 : Data signal of img_in
-//        bit 7~0 - img_in[7:0] (Read/Write)
-//        others  - reserved
-// 0x14 : reserved
-// 0x18 : Data signal of theta_array
-//        bit 31~0 - theta_array[31:0] (Read)
-// 0x1c : Control signal of theta_array
-//        bit 0  - theta_array_ap_vld (Read/COR)
-//        others - reserved
+// 0x00000 : Control signals
+//           bit 0  - ap_start (Read/Write/COH)
+//           bit 1  - ap_done (Read/COR)
+//           bit 2  - ap_idle (Read)
+//           bit 3  - ap_ready (Read)
+//           bit 7  - auto_restart (Read/Write)
+//           others - reserved
+// 0x00004 : Global Interrupt Enable Register
+//           bit 0  - Global Interrupt Enable (Read/Write)
+//           others - reserved
+// 0x00008 : IP Interrupt Enable Register (Read/Write)
+//           bit 0  - enable ap_done interrupt (Read/Write)
+//           bit 1  - enable ap_ready interrupt (Read/Write)
+//           others - reserved
+// 0x0000c : IP Interrupt Status Register (Read/TOW)
+//           bit 0  - ap_done (COR/TOW)
+//           bit 1  - ap_ready (COR/TOW)
+//           others - reserved
+// 0x00010 : Data signal of theta_array
+//           bit 31~0 - theta_array[31:0] (Read)
+// 0x00014 : Control signal of theta_array
+//           bit 0  - theta_array_ap_vld (Read/COR)
+//           others - reserved
+// 0x80000 ~
+// 0xfffff : Memory 'img_in' (307200 * 8b)
+//           Word n : bit [ 7: 0] - img_in[4n]
+//                    bit [15: 8] - img_in[4n+1]
+//                    bit [23:16] - img_in[4n+2]
+//                    bit [31:24] - img_in[4n+3]
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 //------------------------Parameter----------------------
 localparam
-    ADDR_AP_CTRL            = 5'h00,
-    ADDR_GIE                = 5'h04,
-    ADDR_IER                = 5'h08,
-    ADDR_ISR                = 5'h0c,
-    ADDR_IMG_IN_DATA_0      = 5'h10,
-    ADDR_IMG_IN_CTRL        = 5'h14,
-    ADDR_THETA_ARRAY_DATA_0 = 5'h18,
-    ADDR_THETA_ARRAY_CTRL   = 5'h1c,
+    ADDR_AP_CTRL            = 20'h00000,
+    ADDR_GIE                = 20'h00004,
+    ADDR_IER                = 20'h00008,
+    ADDR_ISR                = 20'h0000c,
+    ADDR_THETA_ARRAY_DATA_0 = 20'h00010,
+    ADDR_THETA_ARRAY_CTRL   = 20'h00014,
+    ADDR_IMG_IN_BASE        = 20'h80000,
+    ADDR_IMG_IN_HIGH        = 20'hfffff,
     WRIDLE                  = 2'd0,
     WRDATA                  = 2'd1,
     WRRESP                  = 2'd2,
@@ -84,7 +88,7 @@ localparam
     RDIDLE                  = 2'd0,
     RDDATA                  = 2'd1,
     RDRESET                 = 2'd2,
-    ADDR_BITS                = 5;
+    ADDR_BITS                = 20;
 
 //------------------------Local signal-------------------
     reg  [1:0]                    wstate = WRRESET;
@@ -107,16 +111,51 @@ localparam
     reg                           int_gie = 1'b0;
     reg  [1:0]                    int_ier = 2'b0;
     reg  [1:0]                    int_isr = 2'b0;
-    reg  [7:0]                    int_img_in = 'b0;
     reg  [31:0]                   int_theta_array = 'b0;
     reg                           int_theta_array_ap_vld;
+    // memory signals
+    wire [16:0]                   int_img_in_address0;
+    wire                          int_img_in_ce0;
+    wire                          int_img_in_we0;
+    wire [3:0]                    int_img_in_be0;
+    wire [31:0]                   int_img_in_d0;
+    wire [31:0]                   int_img_in_q0;
+    wire [16:0]                   int_img_in_address1;
+    wire                          int_img_in_ce1;
+    wire                          int_img_in_we1;
+    wire [3:0]                    int_img_in_be1;
+    wire [31:0]                   int_img_in_d1;
+    wire [31:0]                   int_img_in_q1;
+    reg                           int_img_in_read;
+    reg                           int_img_in_write;
+    reg  [1:0]                    int_img_in_shift;
 
 //------------------------Instantiation------------------
+// int_img_in
+houghlines_accel_BUS_A_s_axi_ram #(
+    .BYTES    ( 4 ),
+    .DEPTH    ( 76800 )
+) int_img_in (
+    .clk0     ( ACLK ),
+    .address0 ( int_img_in_address0 ),
+    .ce0      ( int_img_in_ce0 ),
+    .we0      ( int_img_in_we0 ),
+    .be0      ( int_img_in_be0 ),
+    .d0       ( int_img_in_d0 ),
+    .q0       ( int_img_in_q0 ),
+    .clk1     ( ACLK ),
+    .address1 ( int_img_in_address1 ),
+    .ce1      ( int_img_in_ce1 ),
+    .we1      ( int_img_in_we1 ),
+    .be1      ( int_img_in_be1 ),
+    .d1       ( int_img_in_d1 ),
+    .q1       ( int_img_in_q1 )
+);
 
 
 //------------------------AXI write fsm------------------
 assign AWREADY = (wstate == WRIDLE);
-assign WREADY  = (wstate == WRDATA);
+assign WREADY  = (wstate == WRDATA) && (!ar_hs);
 assign BRESP   = 2'b00;  // OKAY
 assign BVALID  = (wstate == WRRESP);
 assign wmask   = { {8{WSTRB[3]}}, {8{WSTRB[2]}}, {8{WSTRB[1]}}, {8{WSTRB[0]}} };
@@ -140,7 +179,7 @@ always @(*) begin
             else
                 wnext = WRIDLE;
         WRDATA:
-            if (WVALID)
+            if (w_hs)
                 wnext = WRRESP;
             else
                 wnext = WRDATA;
@@ -166,7 +205,7 @@ end
 assign ARREADY = (rstate == RDIDLE);
 assign RDATA   = rdata;
 assign RRESP   = 2'b00;  // OKAY
-assign RVALID  = (rstate == RDDATA);
+assign RVALID  = (rstate == RDDATA) & !int_img_in_read;
 assign ar_hs   = ARVALID & ARREADY;
 assign raddr   = ARADDR[ADDR_BITS-1:0];
 
@@ -218,9 +257,6 @@ always @(posedge ACLK) begin
                 ADDR_ISR: begin
                     rdata <= int_isr;
                 end
-                ADDR_IMG_IN_DATA_0: begin
-                    rdata <= int_img_in[7:0];
-                end
                 ADDR_THETA_ARRAY_DATA_0: begin
                     rdata <= int_theta_array[31:0];
                 end
@@ -229,6 +265,9 @@ always @(posedge ACLK) begin
                 end
             endcase
         end
+        else if (int_img_in_read) begin
+            rdata <= int_img_in_q1;
+        end
     end
 end
 
@@ -236,7 +275,6 @@ end
 //------------------------Register logic-----------------
 assign interrupt = int_gie & (|int_isr);
 assign ap_start  = int_ap_start;
-assign img_in    = int_img_in;
 // int_ap_start
 always @(posedge ACLK) begin
     if (ARESET)
@@ -333,16 +371,6 @@ always @(posedge ACLK) begin
     end
 end
 
-// int_img_in[7:0]
-always @(posedge ACLK) begin
-    if (ARESET)
-        int_img_in[7:0] <= 0;
-    else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_IMG_IN_DATA_0)
-            int_img_in[7:0] <= (WDATA[31:0] & wmask) | (int_img_in[7:0] & ~wmask);
-    end
-end
-
 // int_theta_array
 always @(posedge ACLK) begin
     if (ARESET)
@@ -367,5 +395,121 @@ end
 
 
 //------------------------Memory logic-------------------
+// img_in
+assign int_img_in_address0 = img_in_address0 >> 2;
+assign int_img_in_ce0      = img_in_ce0;
+assign int_img_in_we0      = 1'b0;
+assign int_img_in_be0      = 1'b0;
+assign int_img_in_d0       = 1'b0;
+assign img_in_q0           = int_img_in_q0 >> (int_img_in_shift * 8);
+assign int_img_in_address1 = ar_hs? raddr[18:2] : waddr[18:2];
+assign int_img_in_ce1      = ar_hs | (int_img_in_write & WVALID);
+assign int_img_in_we1      = int_img_in_write & w_hs;
+assign int_img_in_be1      = WSTRB;
+assign int_img_in_d1       = WDATA;
+// int_img_in_read
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_img_in_read <= 1'b0;
+    else if (ACLK_EN) begin
+        if (ar_hs && raddr >= ADDR_IMG_IN_BASE && raddr <= ADDR_IMG_IN_HIGH)
+            int_img_in_read <= 1'b1;
+        else
+            int_img_in_read <= 1'b0;
+    end
+end
+
+// int_img_in_write
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_img_in_write <= 1'b0;
+    else if (ACLK_EN) begin
+        if (aw_hs && AWADDR[ADDR_BITS-1:0] >= ADDR_IMG_IN_BASE && AWADDR[ADDR_BITS-1:0] <= ADDR_IMG_IN_HIGH)
+            int_img_in_write <= 1'b1;
+        else if (w_hs)
+            int_img_in_write <= 1'b0;
+    end
+end
+
+// int_img_in_shift
+always @(posedge ACLK) begin
+    if (ACLK_EN) begin
+        if (img_in_ce0)
+            int_img_in_shift <= img_in_address0[1:0];
+    end
+end
+
 
 endmodule
+
+
+`timescale 1ns/1ps
+
+module houghlines_accel_BUS_A_s_axi_ram
+#(parameter
+    BYTES  = 4,
+    DEPTH  = 256,
+    AWIDTH = log2(DEPTH)
+) (
+    input  wire               clk0,
+    input  wire [AWIDTH-1:0]  address0,
+    input  wire               ce0,
+    input  wire               we0,
+    input  wire [BYTES-1:0]   be0,
+    input  wire [BYTES*8-1:0] d0,
+    output reg  [BYTES*8-1:0] q0,
+    input  wire               clk1,
+    input  wire [AWIDTH-1:0]  address1,
+    input  wire               ce1,
+    input  wire               we1,
+    input  wire [BYTES-1:0]   be1,
+    input  wire [BYTES*8-1:0] d1,
+    output reg  [BYTES*8-1:0] q1
+);
+//------------------------Local signal-------------------
+reg  [BYTES*8-1:0] mem[0:DEPTH-1];
+//------------------------Task and function--------------
+function integer log2;
+    input integer x;
+    integer n, m;
+begin
+    n = 1;
+    m = 2;
+    while (m < x) begin
+        n = n + 1;
+        m = m * 2;
+    end
+    log2 = n;
+end
+endfunction
+//------------------------Body---------------------------
+// read port 0
+always @(posedge clk0) begin
+    if (ce0) q0 <= mem[address0];
+end
+
+// read port 1
+always @(posedge clk1) begin
+    if (ce1) q1 <= mem[address1];
+end
+
+genvar i;
+generate
+    for (i = 0; i < BYTES; i = i + 1) begin : gen_write
+        // write port 0
+        always @(posedge clk0) begin
+            if (ce0 & we0 & be0[i]) begin
+                mem[address0][8*i+7:8*i] <= d0[8*i+7:8*i];
+            end
+        end
+        // write port 1
+        always @(posedge clk1) begin
+            if (ce1 & we1 & be1[i]) begin
+                mem[address1][8*i+7:8*i] <= d1[8*i+7:8*i];
+            end
+        end
+    end
+endgenerate
+
+endmodule
+

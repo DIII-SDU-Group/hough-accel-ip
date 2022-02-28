@@ -18,9 +18,9 @@ module houghlines_accel_Array2xfMat_8_0_480_640_1_s (
         ap_ready,
         start_out,
         start_write,
-        img_in_dout,
-        img_in_empty_n,
-        img_in_read,
+        img_in_address0,
+        img_in_ce0,
+        img_in_q0,
         imgInput_44_din,
         imgInput_44_full_n,
         imgInput_44_write,
@@ -51,9 +51,9 @@ output   ap_idle;
 output   ap_ready;
 output   start_out;
 output   start_write;
-input  [7:0] img_in_dout;
-input   img_in_empty_n;
-output   img_in_read;
+output  [18:0] img_in_address0;
+output   img_in_ce0;
+input  [7:0] img_in_q0;
 output  [7:0] imgInput_44_din;
 input   imgInput_44_full_n;
 output   imgInput_44_write;
@@ -73,7 +73,6 @@ output   dstMat_cols_out_write;
 reg ap_done;
 reg ap_idle;
 reg start_write;
-reg img_in_read;
 reg imgInput_44_write;
 reg dstMat_rows_read;
 reg dstMat_cols_read;
@@ -86,29 +85,31 @@ reg    ap_done_reg;
 (* fsm_encoding = "none" *) reg   [1:0] ap_CS_fsm;
 wire    ap_CS_fsm_state1;
 reg    internal_ap_ready;
-reg    img_in_blk_n;
 reg    dstMat_rows_blk_n;
 reg    dstMat_cols_blk_n;
 reg    dstMat_rows_out_blk_n;
 reg    dstMat_cols_out_blk_n;
-reg   [7:0] img_in_read_reg_88;
-reg   [5:0] dstMat_rows_read_reg_93;
-reg   [9:0] dstMat_cols_read_reg_98;
-wire   [7:0] grp_Axi2Mat_fu_76_imgInput_44_din;
-wire    grp_Axi2Mat_fu_76_imgInput_44_write;
-wire    grp_Axi2Mat_fu_76_ap_start;
-wire    grp_Axi2Mat_fu_76_ap_done;
-wire    grp_Axi2Mat_fu_76_ap_ready;
-wire    grp_Axi2Mat_fu_76_ap_idle;
-reg    grp_Axi2Mat_fu_76_ap_continue;
-reg    grp_Axi2Mat_fu_76_ap_start_reg;
-reg    ap_block_state1_ignore_call12;
+reg   [5:0] dstMat_rows_read_reg_92;
+reg   [9:0] dstMat_cols_read_reg_97;
+wire   [18:0] grp_Axi2Mat_fu_80_img_in_address0;
+wire    grp_Axi2Mat_fu_80_img_in_ce0;
+wire   [7:0] grp_Axi2Mat_fu_80_img_in_d0;
+wire    grp_Axi2Mat_fu_80_img_in_we0;
+wire   [7:0] grp_Axi2Mat_fu_80_imgInput_44_din;
+wire    grp_Axi2Mat_fu_80_imgInput_44_write;
+wire    grp_Axi2Mat_fu_80_ap_start;
+wire    grp_Axi2Mat_fu_80_ap_done;
+wire    grp_Axi2Mat_fu_80_ap_ready;
+wire    grp_Axi2Mat_fu_80_ap_idle;
+reg    grp_Axi2Mat_fu_80_ap_continue;
+reg    grp_Axi2Mat_fu_80_ap_start_reg;
+reg    ap_block_state1_ignore_call13;
 wire    ap_CS_fsm_state2;
-wire    ap_sync_grp_Axi2Mat_fu_76_ap_ready;
-wire    ap_sync_grp_Axi2Mat_fu_76_ap_done;
+wire    ap_sync_grp_Axi2Mat_fu_80_ap_ready;
+wire    ap_sync_grp_Axi2Mat_fu_80_ap_done;
 reg    ap_block_state2_on_subcall_done;
-reg    ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready;
-reg    ap_sync_reg_grp_Axi2Mat_fu_76_ap_done;
+reg    ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready;
+reg    ap_sync_reg_grp_Axi2Mat_fu_80_ap_done;
 reg    ap_block_state1;
 reg   [1:0] ap_NS_fsm;
 wire    ap_ce_reg;
@@ -118,28 +119,31 @@ initial begin
 #0 start_once_reg = 1'b0;
 #0 ap_done_reg = 1'b0;
 #0 ap_CS_fsm = 2'd1;
-#0 grp_Axi2Mat_fu_76_ap_start_reg = 1'b0;
-#0 ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready = 1'b0;
-#0 ap_sync_reg_grp_Axi2Mat_fu_76_ap_done = 1'b0;
+#0 grp_Axi2Mat_fu_80_ap_start_reg = 1'b0;
+#0 ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready = 1'b0;
+#0 ap_sync_reg_grp_Axi2Mat_fu_80_ap_done = 1'b0;
 end
 
-houghlines_accel_Axi2Mat grp_Axi2Mat_fu_76(
-    .p_read(img_in_read_reg_88),
-    .imgInput_44_din(grp_Axi2Mat_fu_76_imgInput_44_din),
+houghlines_accel_Axi2Mat grp_Axi2Mat_fu_80(
+    .img_in_address0(grp_Axi2Mat_fu_80_img_in_address0),
+    .img_in_ce0(grp_Axi2Mat_fu_80_img_in_ce0),
+    .img_in_d0(grp_Axi2Mat_fu_80_img_in_d0),
+    .img_in_q0(img_in_q0),
+    .img_in_we0(grp_Axi2Mat_fu_80_img_in_we0),
+    .imgInput_44_din(grp_Axi2Mat_fu_80_imgInput_44_din),
     .imgInput_44_full_n(imgInput_44_full_n),
-    .imgInput_44_write(grp_Axi2Mat_fu_76_imgInput_44_write),
-    .rows(dstMat_rows_read_reg_93),
-    .cols(dstMat_cols_read_reg_98),
+    .imgInput_44_write(grp_Axi2Mat_fu_80_imgInput_44_write),
+    .rows(dstMat_rows_read_reg_92),
+    .cols(dstMat_cols_read_reg_97),
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .p_read_ap_vld(1'b1),
     .rows_ap_vld(1'b1),
     .cols_ap_vld(1'b1),
-    .ap_start(grp_Axi2Mat_fu_76_ap_start),
-    .ap_done(grp_Axi2Mat_fu_76_ap_done),
-    .ap_ready(grp_Axi2Mat_fu_76_ap_ready),
-    .ap_idle(grp_Axi2Mat_fu_76_ap_idle),
-    .ap_continue(grp_Axi2Mat_fu_76_ap_continue)
+    .ap_start(grp_Axi2Mat_fu_80_ap_start),
+    .ap_done(grp_Axi2Mat_fu_80_ap_done),
+    .ap_ready(grp_Axi2Mat_fu_80_ap_ready),
+    .ap_idle(grp_Axi2Mat_fu_80_ap_idle),
+    .ap_continue(grp_Axi2Mat_fu_80_ap_continue)
 );
 
 always @ (posedge ap_clk) begin
@@ -164,36 +168,36 @@ end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        ap_sync_reg_grp_Axi2Mat_fu_76_ap_done <= 1'b0;
+        ap_sync_reg_grp_Axi2Mat_fu_80_ap_done <= 1'b0;
     end else begin
         if (((1'b1 == ap_CS_fsm_state2) & (1'b0 == ap_block_state2_on_subcall_done))) begin
-            ap_sync_reg_grp_Axi2Mat_fu_76_ap_done <= 1'b0;
-        end else if ((grp_Axi2Mat_fu_76_ap_done == 1'b1)) begin
-            ap_sync_reg_grp_Axi2Mat_fu_76_ap_done <= 1'b1;
+            ap_sync_reg_grp_Axi2Mat_fu_80_ap_done <= 1'b0;
+        end else if ((grp_Axi2Mat_fu_80_ap_done == 1'b1)) begin
+            ap_sync_reg_grp_Axi2Mat_fu_80_ap_done <= 1'b1;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready <= 1'b0;
+        ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready <= 1'b0;
     end else begin
         if (((1'b1 == ap_CS_fsm_state2) & (1'b0 == ap_block_state2_on_subcall_done))) begin
-            ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready <= 1'b0;
-        end else if ((grp_Axi2Mat_fu_76_ap_ready == 1'b1)) begin
-            ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready <= 1'b1;
+            ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready <= 1'b0;
+        end else if ((grp_Axi2Mat_fu_80_ap_ready == 1'b1)) begin
+            ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready <= 1'b1;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_Axi2Mat_fu_76_ap_start_reg <= 1'b0;
+        grp_Axi2Mat_fu_80_ap_start_reg <= 1'b0;
     end else begin
-        if ((((1'b1 == ap_CS_fsm_state2) & (ap_sync_grp_Axi2Mat_fu_76_ap_ready == 1'b0)) | (~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1)))) begin
-            grp_Axi2Mat_fu_76_ap_start_reg <= 1'b1;
-        end else if ((grp_Axi2Mat_fu_76_ap_ready == 1'b1)) begin
-            grp_Axi2Mat_fu_76_ap_start_reg <= 1'b0;
+        if ((((1'b1 == ap_CS_fsm_state2) & (ap_sync_grp_Axi2Mat_fu_80_ap_ready == 1'b0)) | (~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1)))) begin
+            grp_Axi2Mat_fu_80_ap_start_reg <= 1'b1;
+        end else if ((grp_Axi2Mat_fu_80_ap_ready == 1'b1)) begin
+            grp_Axi2Mat_fu_80_ap_start_reg <= 1'b0;
         end
     end
 end
@@ -212,9 +216,8 @@ end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state1)) begin
-        dstMat_cols_read_reg_98 <= dstMat_cols_dout;
-        dstMat_rows_read_reg_93 <= dstMat_rows_dout;
-        img_in_read_reg_88 <= img_in_dout;
+        dstMat_cols_read_reg_97 <= dstMat_cols_dout;
+        dstMat_rows_read_reg_92 <= dstMat_rows_dout;
     end
 end
 
@@ -251,7 +254,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+    if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
         dstMat_cols_out_write = 1'b1;
     end else begin
         dstMat_cols_out_write = 1'b0;
@@ -259,7 +262,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+    if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
         dstMat_cols_read = 1'b1;
     end else begin
         dstMat_cols_read = 1'b0;
@@ -283,7 +286,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+    if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
         dstMat_rows_out_write = 1'b1;
     end else begin
         dstMat_rows_out_write = 1'b0;
@@ -291,7 +294,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+    if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
         dstMat_rows_read = 1'b1;
     end else begin
         dstMat_rows_read = 1'b0;
@@ -300,33 +303,17 @@ end
 
 always @ (*) begin
     if (((1'b1 == ap_CS_fsm_state2) & (1'b0 == ap_block_state2_on_subcall_done))) begin
-        grp_Axi2Mat_fu_76_ap_continue = 1'b1;
+        grp_Axi2Mat_fu_80_ap_continue = 1'b1;
     end else begin
-        grp_Axi2Mat_fu_76_ap_continue = 1'b0;
+        grp_Axi2Mat_fu_80_ap_continue = 1'b0;
     end
 end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state2)) begin
-        imgInput_44_write = grp_Axi2Mat_fu_76_imgInput_44_write;
+        imgInput_44_write = grp_Axi2Mat_fu_80_imgInput_44_write;
     end else begin
         imgInput_44_write = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if ((~((real_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        img_in_blk_n = img_in_empty_n;
-    end else begin
-        img_in_blk_n = 1'b1;
-    end
-end
-
-always @ (*) begin
-    if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        img_in_read = 1'b1;
-    end else begin
-        img_in_read = 1'b0;
     end
 end
 
@@ -357,7 +344,7 @@ end
 always @ (*) begin
     case (ap_CS_fsm)
         ap_ST_fsm_state1 : begin
-            if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+            if ((~((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
                 ap_NS_fsm = ap_ST_fsm_state2;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state1;
@@ -381,30 +368,34 @@ assign ap_CS_fsm_state1 = ap_CS_fsm[32'd0];
 assign ap_CS_fsm_state2 = ap_CS_fsm[32'd1];
 
 always @ (*) begin
-    ap_block_state1 = ((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1));
+    ap_block_state1 = ((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1));
 end
 
 always @ (*) begin
-    ap_block_state1_ignore_call12 = ((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1));
+    ap_block_state1_ignore_call13 = ((real_start == 1'b0) | (dstMat_cols_out_full_n == 1'b0) | (dstMat_rows_out_full_n == 1'b0) | (dstMat_cols_empty_n == 1'b0) | (dstMat_rows_empty_n == 1'b0) | (ap_done_reg == 1'b1));
 end
 
 always @ (*) begin
-    ap_block_state2_on_subcall_done = ((ap_sync_grp_Axi2Mat_fu_76_ap_ready & ap_sync_grp_Axi2Mat_fu_76_ap_done) == 1'b0);
+    ap_block_state2_on_subcall_done = ((ap_sync_grp_Axi2Mat_fu_80_ap_ready & ap_sync_grp_Axi2Mat_fu_80_ap_done) == 1'b0);
 end
 
 assign ap_ready = internal_ap_ready;
 
-assign ap_sync_grp_Axi2Mat_fu_76_ap_done = (grp_Axi2Mat_fu_76_ap_done | ap_sync_reg_grp_Axi2Mat_fu_76_ap_done);
+assign ap_sync_grp_Axi2Mat_fu_80_ap_done = (grp_Axi2Mat_fu_80_ap_done | ap_sync_reg_grp_Axi2Mat_fu_80_ap_done);
 
-assign ap_sync_grp_Axi2Mat_fu_76_ap_ready = (grp_Axi2Mat_fu_76_ap_ready | ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready);
+assign ap_sync_grp_Axi2Mat_fu_80_ap_ready = (grp_Axi2Mat_fu_80_ap_ready | ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready);
 
 assign dstMat_cols_out_din = dstMat_cols_dout;
 
 assign dstMat_rows_out_din = dstMat_rows_dout;
 
-assign grp_Axi2Mat_fu_76_ap_start = grp_Axi2Mat_fu_76_ap_start_reg;
+assign grp_Axi2Mat_fu_80_ap_start = grp_Axi2Mat_fu_80_ap_start_reg;
 
-assign imgInput_44_din = grp_Axi2Mat_fu_76_imgInput_44_din;
+assign imgInput_44_din = grp_Axi2Mat_fu_80_imgInput_44_din;
+
+assign img_in_address0 = grp_Axi2Mat_fu_80_img_in_address0;
+
+assign img_in_ce0 = grp_Axi2Mat_fu_80_img_in_ce0;
 
 assign start_out = real_start;
 

@@ -15,9 +15,9 @@ module houghlines_accel_Axi2AxiStream (
         ap_continue,
         ap_idle,
         ap_ready,
-        img_in_dout,
-        img_in_empty_n,
-        img_in_read,
+        img_in_address0,
+        img_in_ce0,
+        img_in_q0,
         ldata1_din,
         ldata1_full_n,
         ldata1_write,
@@ -35,9 +35,9 @@ output   ap_done;
 input   ap_continue;
 output   ap_idle;
 output   ap_ready;
-input  [7:0] img_in_dout;
-input   img_in_empty_n;
-output   img_in_read;
+output  [18:0] img_in_address0;
+output   img_in_ce0;
+input  [7:0] img_in_q0;
 output  [7:0] ldata1_din;
 input   ldata1_full_n;
 output   ldata1_write;
@@ -46,29 +46,28 @@ input  [18:0] addrbound_V_read;
 reg ap_done;
 reg ap_idle;
 reg ap_ready;
-reg img_in_read;
+reg img_in_ce0;
 reg ldata1_write;
 
 reg    ap_done_reg;
 (* fsm_encoding = "none" *) reg   [2:0] ap_CS_fsm;
 wire    ap_CS_fsm_state1;
-reg    img_in_blk_n;
 reg    ldata1_blk_n;
 wire    ap_CS_fsm_pp0_stage0;
 reg    ap_enable_reg_pp0_iter1;
 wire    ap_block_pp0_stage0;
-reg   [0:0] icmp_ln1024_reg_106;
-reg   [18:0] i_V_reg_69;
-reg   [7:0] img_in_read_reg_96;
-wire   [18:0] i_V_2_fu_80_p2;
+reg   [0:0] icmp_ln1024_reg_114;
+reg   [18:0] i_V_reg_77;
+wire   [18:0] i_V_2_fu_88_p2;
 reg    ap_enable_reg_pp0_iter0;
 wire    ap_block_state2_pp0_stage0_iter0;
 reg    ap_block_state3_pp0_stage0_iter1;
 reg    ap_block_pp0_stage0_11001;
-wire   [0:0] icmp_ln1024_fu_86_p2;
+wire   [0:0] icmp_ln1024_fu_94_p2;
 reg    ap_block_state1;
 reg    ap_block_pp0_stage0_subdone;
 reg    ap_condition_pp0_exit_iter0_state2;
+wire   [63:0] zext_ln534_fu_99_p1;
 reg    ap_block_pp0_stage0_01001;
 wire    ap_CS_fsm_state4;
 reg   [2:0] ap_NS_fsm;
@@ -110,7 +109,7 @@ always @ (posedge ap_clk) begin
     end else begin
         if (((1'b0 == ap_block_pp0_stage0_subdone) & (1'b1 == ap_condition_pp0_exit_iter0_state2) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
             ap_enable_reg_pp0_iter0 <= 1'b0;
-        end else if ((~((ap_start == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        end else if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
             ap_enable_reg_pp0_iter0 <= 1'b1;
         end
     end
@@ -124,34 +123,28 @@ always @ (posedge ap_clk) begin
             ap_enable_reg_pp0_iter1 <= (1'b1 ^ ap_condition_pp0_exit_iter0_state2);
         end else if ((1'b0 == ap_block_pp0_stage0_subdone)) begin
             ap_enable_reg_pp0_iter1 <= ap_enable_reg_pp0_iter0;
-        end else if ((~((ap_start == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        end else if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
             ap_enable_reg_pp0_iter1 <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
-    if (((icmp_ln1024_fu_86_p2 == 1'd0) & (ap_enable_reg_pp0_iter0 == 1'b1) & (1'b0 == ap_block_pp0_stage0_11001) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
-        i_V_reg_69 <= i_V_2_fu_80_p2;
-    end else if ((~((ap_start == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        i_V_reg_69 <= 19'd0;
+    if (((icmp_ln1024_fu_94_p2 == 1'd0) & (ap_enable_reg_pp0_iter0 == 1'b1) & (1'b0 == ap_block_pp0_stage0_11001) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
+        i_V_reg_77 <= i_V_2_fu_88_p2;
+    end else if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        i_V_reg_77 <= 19'd0;
     end
 end
 
 always @ (posedge ap_clk) begin
     if (((1'b0 == ap_block_pp0_stage0_11001) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
-        icmp_ln1024_reg_106 <= icmp_ln1024_fu_86_p2;
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if ((1'b1 == ap_CS_fsm_state1)) begin
-        img_in_read_reg_96 <= img_in_dout;
+        icmp_ln1024_reg_114 <= icmp_ln1024_fu_94_p2;
     end
 end
 
 always @ (*) begin
-    if ((icmp_ln1024_fu_86_p2 == 1'd1)) begin
+    if ((icmp_ln1024_fu_94_p2 == 1'd1)) begin
         ap_condition_pp0_exit_iter0_state2 = 1'b1;
     end else begin
         ap_condition_pp0_exit_iter0_state2 = 1'b0;
@@ -191,23 +184,15 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        img_in_blk_n = img_in_empty_n;
+    if (((ap_enable_reg_pp0_iter0 == 1'b1) & (1'b0 == ap_block_pp0_stage0_11001) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
+        img_in_ce0 = 1'b1;
     end else begin
-        img_in_blk_n = 1'b1;
+        img_in_ce0 = 1'b0;
     end
 end
 
 always @ (*) begin
-    if ((~((ap_start == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        img_in_read = 1'b1;
-    end else begin
-        img_in_read = 1'b0;
-    end
-end
-
-always @ (*) begin
-    if (((icmp_ln1024_reg_106 == 1'd0) & (1'b0 == ap_block_pp0_stage0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
+    if (((icmp_ln1024_reg_114 == 1'd0) & (1'b0 == ap_block_pp0_stage0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
         ldata1_blk_n = ldata1_full_n;
     end else begin
         ldata1_blk_n = 1'b1;
@@ -215,7 +200,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((icmp_ln1024_reg_106 == 1'd0) & (1'b0 == ap_block_pp0_stage0_11001) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
+    if (((icmp_ln1024_reg_114 == 1'd0) & (1'b0 == ap_block_pp0_stage0_11001) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
         ldata1_write = 1'b1;
     end else begin
         ldata1_write = 1'b0;
@@ -225,16 +210,16 @@ end
 always @ (*) begin
     case (ap_CS_fsm)
         ap_ST_fsm_state1 : begin
-            if ((~((ap_start == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+            if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
                 ap_NS_fsm = ap_ST_fsm_pp0_stage0;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state1;
             end
         end
         ap_ST_fsm_pp0_stage0 : begin
-            if (~((icmp_ln1024_fu_86_p2 == 1'd1) & (ap_enable_reg_pp0_iter0 == 1'b1) & (1'b0 == ap_block_pp0_stage0_subdone))) begin
+            if (~((icmp_ln1024_fu_94_p2 == 1'd1) & (ap_enable_reg_pp0_iter0 == 1'b1) & (1'b0 == ap_block_pp0_stage0_subdone))) begin
                 ap_NS_fsm = ap_ST_fsm_pp0_stage0;
-            end else if (((icmp_ln1024_fu_86_p2 == 1'd1) & (ap_enable_reg_pp0_iter0 == 1'b1) & (1'b0 == ap_block_pp0_stage0_subdone))) begin
+            end else if (((icmp_ln1024_fu_94_p2 == 1'd1) & (ap_enable_reg_pp0_iter0 == 1'b1) & (1'b0 == ap_block_pp0_stage0_subdone))) begin
                 ap_NS_fsm = ap_ST_fsm_state4;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_pp0_stage0;
@@ -258,33 +243,37 @@ assign ap_CS_fsm_state4 = ap_CS_fsm[32'd2];
 assign ap_block_pp0_stage0 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_pp0_stage0_01001 = ((icmp_ln1024_reg_106 == 1'd0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (ldata1_full_n == 1'b0));
+    ap_block_pp0_stage0_01001 = ((icmp_ln1024_reg_114 == 1'd0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (ldata1_full_n == 1'b0));
 end
 
 always @ (*) begin
-    ap_block_pp0_stage0_11001 = ((icmp_ln1024_reg_106 == 1'd0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (ldata1_full_n == 1'b0));
+    ap_block_pp0_stage0_11001 = ((icmp_ln1024_reg_114 == 1'd0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (ldata1_full_n == 1'b0));
 end
 
 always @ (*) begin
-    ap_block_pp0_stage0_subdone = ((icmp_ln1024_reg_106 == 1'd0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (ldata1_full_n == 1'b0));
+    ap_block_pp0_stage0_subdone = ((icmp_ln1024_reg_114 == 1'd0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (ldata1_full_n == 1'b0));
 end
 
 always @ (*) begin
-    ap_block_state1 = ((ap_start == 1'b0) | (img_in_empty_n == 1'b0) | (ap_done_reg == 1'b1));
+    ap_block_state1 = ((ap_start == 1'b0) | (ap_done_reg == 1'b1));
 end
 
 assign ap_block_state2_pp0_stage0_iter0 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_state3_pp0_stage0_iter1 = ((icmp_ln1024_reg_106 == 1'd0) & (ldata1_full_n == 1'b0));
+    ap_block_state3_pp0_stage0_iter1 = ((icmp_ln1024_reg_114 == 1'd0) & (ldata1_full_n == 1'b0));
 end
 
 assign ap_enable_pp0 = (ap_idle_pp0 ^ 1'b1);
 
-assign i_V_2_fu_80_p2 = (i_V_reg_69 + 19'd1);
+assign i_V_2_fu_88_p2 = (i_V_reg_77 + 19'd1);
 
-assign icmp_ln1024_fu_86_p2 = ((i_V_reg_69 == addrbound_V_read) ? 1'b1 : 1'b0);
+assign icmp_ln1024_fu_94_p2 = ((i_V_reg_77 == addrbound_V_read) ? 1'b1 : 1'b0);
 
-assign ldata1_din = img_in_read_reg_96;
+assign img_in_address0 = zext_ln534_fu_99_p1;
+
+assign ldata1_din = img_in_q0;
+
+assign zext_ln534_fu_99_p1 = i_V_reg_77;
 
 endmodule //houghlines_accel_Axi2AxiStream

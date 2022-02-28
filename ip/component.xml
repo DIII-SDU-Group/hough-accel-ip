@@ -153,7 +153,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>ADDR_WIDTH</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.S_AXI_BUS_A.ADDR_WIDTH">5</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.S_AXI_BUS_A.ADDR_WIDTH">20</spirit:value>
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>DATA_WIDTH</spirit:name>
@@ -246,7 +246,7 @@
       <spirit:addressBlock>
         <spirit:name>Reg</spirit:name>
         <spirit:baseAddress spirit:format="long">0</spirit:baseAddress>
-        <spirit:range spirit:format="long" spirit:resolve="generated">65536</spirit:range>
+        <spirit:range spirit:format="long" spirit:resolve="generated">1048576</spirit:range>
         <spirit:width spirit:format="long">32</spirit:width>
         <spirit:usage>register</spirit:usage>
         <spirit:access>read-write</spirit:access>
@@ -502,46 +502,10 @@
           </spirit:field>
         </spirit:register>
         <spirit:register>
-          <spirit:name>img_in</spirit:name>
-          <spirit:displayName>img_in</spirit:displayName>
-          <spirit:description>Data signal of img_in</spirit:description>
-          <spirit:addressOffset>16</spirit:addressOffset>
-          <spirit:size spirit:format="long">32</spirit:size>
-          <spirit:access>write-only</spirit:access>
-          <spirit:reset>
-            <spirit:value spirit:format="long">0</spirit:value>
-          </spirit:reset>
-          <spirit:field>
-            <spirit:name>img_in</spirit:name>
-            <spirit:description>Bit 7 to 0 of img_in</spirit:description>
-            <spirit:bitOffset>0</spirit:bitOffset>
-            <spirit:bitWidth spirit:format="long">8</spirit:bitWidth>
-            <spirit:access>write-only</spirit:access>
-            <spirit:writeValueConstraint>
-              <spirit:minimum>0</spirit:minimum>
-              <spirit:maximum>0</spirit:maximum>
-            </spirit:writeValueConstraint>
-            <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>RESERVED</spirit:name>
-            <spirit:description>Reserved.  0s on read.</spirit:description>
-            <spirit:bitOffset>8</spirit:bitOffset>
-            <spirit:bitWidth spirit:format="long">24</spirit:bitWidth>
-            <spirit:access>read-only</spirit:access>
-            <spirit:writeValueConstraint>
-              <spirit:minimum>0</spirit:minimum>
-              <spirit:maximum>0</spirit:maximum>
-            </spirit:writeValueConstraint>
-            <spirit:readAction>modify</spirit:readAction>
-            <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
-          </spirit:field>
-        </spirit:register>
-        <spirit:register>
           <spirit:name>theta_array</spirit:name>
           <spirit:displayName>theta_array</spirit:displayName>
           <spirit:description>Data signal of theta_array</spirit:description>
-          <spirit:addressOffset>24</spirit:addressOffset>
+          <spirit:addressOffset>16</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
           <spirit:access>read-only</spirit:access>
           <spirit:reset>
@@ -565,7 +529,7 @@
           <spirit:name>theta_array_ctrl</spirit:name>
           <spirit:displayName>theta_array_ctrl</spirit:displayName>
           <spirit:description>Control signal of theta_array</spirit:description>
-          <spirit:addressOffset>28</spirit:addressOffset>
+          <spirit:addressOffset>20</spirit:addressOffset>
           <spirit:size spirit:format="long">32</spirit:size>
           <spirit:access>read-only</spirit:access>
           <spirit:reset>
@@ -598,6 +562,17 @@
             <spirit:testable spirit:testConstraint="unconstrained">false</spirit:testable>
           </spirit:field>
         </spirit:register>
+        <spirit:register>
+          <spirit:name>Memory_img_in</spirit:name>
+          <spirit:displayName>Memory_img_in</spirit:displayName>
+          <spirit:description>Memory img_in</spirit:description>
+          <spirit:addressOffset>524288</spirit:addressOffset>
+          <spirit:size spirit:format="long">524288</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value spirit:format="long">0</spirit:value>
+          </spirit:reset>
+        </spirit:register>
       </spirit:addressBlock>
     </spirit:memoryMap>
   </spirit:memoryMaps>
@@ -618,7 +593,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>a9ba0d28</spirit:value>
+            <spirit:value>1c6c9fea</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -637,7 +612,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>8020622d</spirit:value>
+            <spirit:value>d41c5ac1</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -656,7 +631,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>4cdbbbfd</spirit:value>
+            <spirit:value>483b5afb</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -675,7 +650,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>61388070</spirit:value>
+            <spirit:value>28a64bae</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -689,7 +664,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>899b3fad</spirit:value>
+            <spirit:value>eb2249c9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -725,7 +700,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>e55f4296</spirit:value>
+            <spirit:value>16f2d62e</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -750,7 +725,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S_AXI_BUS_A_ADDR_WIDTH&apos;)) - 1)">4</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S_AXI_BUS_A_ADDR_WIDTH&apos;)) - 1)">19</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -896,7 +871,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S_AXI_BUS_A_ADDR_WIDTH&apos;)) - 1)">4</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S_AXI_BUS_A_ADDR_WIDTH&apos;)) - 1)">19</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -1037,7 +1012,7 @@
     <spirit:modelParameters>
       <spirit:modelParameter xsi:type="spirit:nameValueTypeType" spirit:dataType="integer">
         <spirit:name>C_S_AXI_BUS_A_ADDR_WIDTH</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_S_AXI_BUS_A_ADDR_WIDTH">5</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_S_AXI_BUS_A_ADDR_WIDTH">20</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_S_AXI_BUS_A_DATA_WIDTH</spirit:name>
@@ -1098,7 +1073,7 @@
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/houghlines_accel_Block_split1_proc27.v</spirit:name>
+        <spirit:name>hdl/verilog/houghlines_accel_Block_split1_proc.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1131,10 +1106,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/verilog/houghlines_accel_fifo_w8_d2_S_x.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/verilog/houghlines_accel_fifo_w8_d4_S.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1215,10 +1186,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/verilog/houghlines_accel_start_for_addrbound_U0.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/verilog/houghlines_accel_start_for_Array2xfMat_8_0_480_640_1_U0.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1319,7 +1286,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/verilog/houghlines_accel_Block_split1_proc27.v</spirit:name>
+        <spirit:name>hdl/verilog/houghlines_accel_Block_split1_proc.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -1360,11 +1327,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/verilog/houghlines_accel_fifo_w8_d2_S_x.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/verilog/houghlines_accel_fifo_w8_d4_S.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -1465,11 +1427,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/verilog/houghlines_accel_start_for_addrbound_U0.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/verilog/houghlines_accel_start_for_Array2xfMat_8_0_480_640_1_U0.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -1606,7 +1563,7 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/houghlines_accel_Block_split1_proc27.vhd</spirit:name>
+        <spirit:name>hdl/vhdl/houghlines_accel_Block_split1_proc.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1639,10 +1596,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/houghlines_accel_fifo_w8_d2_S_x.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/vhdl/houghlines_accel_fifo_w8_d4_S.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1714,10 +1667,6 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/houghlines_accel_start_for_Array2xfMat_8_0_480_640_1_U0.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>hdl/vhdl/houghlines_accel_start_for_Axi2Mat_entry21_U0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
@@ -1760,7 +1709,7 @@
       <spirit:file>
         <spirit:name>hdl/vhdl/houghlines_accel.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_ac39a892</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_1409fb8a</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -1816,7 +1765,7 @@
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/vhdl/houghlines_accel_Block_split1_proc27.vhd</spirit:name>
+        <spirit:name>hdl/vhdl/houghlines_accel_Block_split1_proc.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -1857,11 +1806,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/houghlines_accel_fifo_w8_d2_S_x.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/vhdl/houghlines_accel_fifo_w8_d4_S.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -1947,11 +1891,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/houghlines_accel_start_for_addrbound_U0.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/vhdl/houghlines_accel_start_for_Array2xfMat_8_0_480_640_1_U0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -2090,7 +2029,7 @@
       <spirit:file>
         <spirit:name>xgui/houghlines_accel_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_e55f4296</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_16f2d62e</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -2140,8 +2079,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>Houghlines_accel</xilinx:displayName>
       <xilinx:definitionSource>HLS</xilinx:definitionSource>
-      <xilinx:coreRevision>2112397138</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2022-02-28T19:58:48Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>2112397173</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2022-02-28T20:33:39Z</xilinx:coreCreationDateTime>
       <xilinx:sdxKernelAttributes>
         <xilinx:sdx_kernel>true</xilinx:sdx_kernel>
         <xilinx:sdx_kernel_type>hls</xilinx:sdx_kernel_type>
@@ -2149,11 +2088,11 @@
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.2</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="ab99b964"/>
-      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="39e394e4"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="8752c96f"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="722d4f20"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="3b73116f"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="141d7aae"/>
+      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="a12f08ef"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="0f08f55d"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="3744cad4"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="b8696b4d"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="bde17e81"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>

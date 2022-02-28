@@ -21,9 +21,9 @@ port (
     ap_ready : OUT STD_LOGIC;
     start_out : OUT STD_LOGIC;
     start_write : OUT STD_LOGIC;
-    img_in_dout : IN STD_LOGIC_VECTOR (7 downto 0);
-    img_in_empty_n : IN STD_LOGIC;
-    img_in_read : OUT STD_LOGIC;
+    img_in_address0 : OUT STD_LOGIC_VECTOR (18 downto 0);
+    img_in_ce0 : OUT STD_LOGIC;
+    img_in_q0 : IN STD_LOGIC_VECTOR (7 downto 0);
     imgInput_44_din : OUT STD_LOGIC_VECTOR (7 downto 0);
     imgInput_44_full_n : IN STD_LOGIC;
     imgInput_44_write : OUT STD_LOGIC;
@@ -62,37 +62,43 @@ attribute shreg_extract : string;
     signal ap_CS_fsm_state1 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state1 : signal is "none";
     signal internal_ap_ready : STD_LOGIC;
-    signal img_in_blk_n : STD_LOGIC;
     signal dstMat_rows_blk_n : STD_LOGIC;
     signal dstMat_cols_blk_n : STD_LOGIC;
     signal dstMat_rows_out_blk_n : STD_LOGIC;
     signal dstMat_cols_out_blk_n : STD_LOGIC;
-    signal img_in_read_reg_88 : STD_LOGIC_VECTOR (7 downto 0);
-    signal dstMat_rows_read_reg_93 : STD_LOGIC_VECTOR (5 downto 0);
-    signal dstMat_cols_read_reg_98 : STD_LOGIC_VECTOR (9 downto 0);
-    signal grp_Axi2Mat_fu_76_imgInput_44_din : STD_LOGIC_VECTOR (7 downto 0);
-    signal grp_Axi2Mat_fu_76_imgInput_44_write : STD_LOGIC;
-    signal grp_Axi2Mat_fu_76_ap_start : STD_LOGIC;
-    signal grp_Axi2Mat_fu_76_ap_done : STD_LOGIC;
-    signal grp_Axi2Mat_fu_76_ap_ready : STD_LOGIC;
-    signal grp_Axi2Mat_fu_76_ap_idle : STD_LOGIC;
-    signal grp_Axi2Mat_fu_76_ap_continue : STD_LOGIC;
-    signal grp_Axi2Mat_fu_76_ap_start_reg : STD_LOGIC := '0';
-    signal ap_block_state1_ignore_call12 : BOOLEAN;
+    signal dstMat_rows_read_reg_92 : STD_LOGIC_VECTOR (5 downto 0);
+    signal dstMat_cols_read_reg_97 : STD_LOGIC_VECTOR (9 downto 0);
+    signal grp_Axi2Mat_fu_80_img_in_address0 : STD_LOGIC_VECTOR (18 downto 0);
+    signal grp_Axi2Mat_fu_80_img_in_ce0 : STD_LOGIC;
+    signal grp_Axi2Mat_fu_80_img_in_d0 : STD_LOGIC_VECTOR (7 downto 0);
+    signal grp_Axi2Mat_fu_80_img_in_we0 : STD_LOGIC;
+    signal grp_Axi2Mat_fu_80_imgInput_44_din : STD_LOGIC_VECTOR (7 downto 0);
+    signal grp_Axi2Mat_fu_80_imgInput_44_write : STD_LOGIC;
+    signal grp_Axi2Mat_fu_80_ap_start : STD_LOGIC;
+    signal grp_Axi2Mat_fu_80_ap_done : STD_LOGIC;
+    signal grp_Axi2Mat_fu_80_ap_ready : STD_LOGIC;
+    signal grp_Axi2Mat_fu_80_ap_idle : STD_LOGIC;
+    signal grp_Axi2Mat_fu_80_ap_continue : STD_LOGIC;
+    signal grp_Axi2Mat_fu_80_ap_start_reg : STD_LOGIC := '0';
+    signal ap_block_state1_ignore_call13 : BOOLEAN;
     signal ap_CS_fsm_state2 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state2 : signal is "none";
-    signal ap_sync_grp_Axi2Mat_fu_76_ap_ready : STD_LOGIC;
-    signal ap_sync_grp_Axi2Mat_fu_76_ap_done : STD_LOGIC;
+    signal ap_sync_grp_Axi2Mat_fu_80_ap_ready : STD_LOGIC;
+    signal ap_sync_grp_Axi2Mat_fu_80_ap_done : STD_LOGIC;
     signal ap_block_state2_on_subcall_done : BOOLEAN;
-    signal ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready : STD_LOGIC := '0';
-    signal ap_sync_reg_grp_Axi2Mat_fu_76_ap_done : STD_LOGIC := '0';
+    signal ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready : STD_LOGIC := '0';
+    signal ap_sync_reg_grp_Axi2Mat_fu_80_ap_done : STD_LOGIC := '0';
     signal ap_block_state1 : BOOLEAN;
     signal ap_NS_fsm : STD_LOGIC_VECTOR (1 downto 0);
     signal ap_ce_reg : STD_LOGIC;
 
     component houghlines_accel_Axi2Mat IS
     port (
-        p_read : IN STD_LOGIC_VECTOR (7 downto 0);
+        img_in_address0 : OUT STD_LOGIC_VECTOR (18 downto 0);
+        img_in_ce0 : OUT STD_LOGIC;
+        img_in_d0 : OUT STD_LOGIC_VECTOR (7 downto 0);
+        img_in_q0 : IN STD_LOGIC_VECTOR (7 downto 0);
+        img_in_we0 : OUT STD_LOGIC;
         imgInput_44_din : OUT STD_LOGIC_VECTOR (7 downto 0);
         imgInput_44_full_n : IN STD_LOGIC;
         imgInput_44_write : OUT STD_LOGIC;
@@ -100,7 +106,6 @@ attribute shreg_extract : string;
         cols : IN STD_LOGIC_VECTOR (9 downto 0);
         ap_clk : IN STD_LOGIC;
         ap_rst : IN STD_LOGIC;
-        p_read_ap_vld : IN STD_LOGIC;
         rows_ap_vld : IN STD_LOGIC;
         cols_ap_vld : IN STD_LOGIC;
         ap_start : IN STD_LOGIC;
@@ -113,24 +118,27 @@ attribute shreg_extract : string;
 
 
 begin
-    grp_Axi2Mat_fu_76 : component houghlines_accel_Axi2Mat
+    grp_Axi2Mat_fu_80 : component houghlines_accel_Axi2Mat
     port map (
-        p_read => img_in_read_reg_88,
-        imgInput_44_din => grp_Axi2Mat_fu_76_imgInput_44_din,
+        img_in_address0 => grp_Axi2Mat_fu_80_img_in_address0,
+        img_in_ce0 => grp_Axi2Mat_fu_80_img_in_ce0,
+        img_in_d0 => grp_Axi2Mat_fu_80_img_in_d0,
+        img_in_q0 => img_in_q0,
+        img_in_we0 => grp_Axi2Mat_fu_80_img_in_we0,
+        imgInput_44_din => grp_Axi2Mat_fu_80_imgInput_44_din,
         imgInput_44_full_n => imgInput_44_full_n,
-        imgInput_44_write => grp_Axi2Mat_fu_76_imgInput_44_write,
-        rows => dstMat_rows_read_reg_93,
-        cols => dstMat_cols_read_reg_98,
+        imgInput_44_write => grp_Axi2Mat_fu_80_imgInput_44_write,
+        rows => dstMat_rows_read_reg_92,
+        cols => dstMat_cols_read_reg_97,
         ap_clk => ap_clk,
         ap_rst => ap_rst,
-        p_read_ap_vld => ap_const_logic_1,
         rows_ap_vld => ap_const_logic_1,
         cols_ap_vld => ap_const_logic_1,
-        ap_start => grp_Axi2Mat_fu_76_ap_start,
-        ap_done => grp_Axi2Mat_fu_76_ap_done,
-        ap_ready => grp_Axi2Mat_fu_76_ap_ready,
-        ap_idle => grp_Axi2Mat_fu_76_ap_idle,
-        ap_continue => grp_Axi2Mat_fu_76_ap_continue);
+        ap_start => grp_Axi2Mat_fu_80_ap_start,
+        ap_done => grp_Axi2Mat_fu_80_ap_done,
+        ap_ready => grp_Axi2Mat_fu_80_ap_ready,
+        ap_idle => grp_Axi2Mat_fu_80_ap_idle,
+        ap_continue => grp_Axi2Mat_fu_80_ap_continue);
 
 
 
@@ -164,48 +172,48 @@ begin
     end process;
 
 
-    ap_sync_reg_grp_Axi2Mat_fu_76_ap_done_assign_proc : process(ap_clk)
+    ap_sync_reg_grp_Axi2Mat_fu_80_ap_done_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst = '1') then
-                ap_sync_reg_grp_Axi2Mat_fu_76_ap_done <= ap_const_logic_0;
+                ap_sync_reg_grp_Axi2Mat_fu_80_ap_done <= ap_const_logic_0;
             else
                 if (((ap_const_logic_1 = ap_CS_fsm_state2) and (ap_const_boolean_0 = ap_block_state2_on_subcall_done))) then 
-                    ap_sync_reg_grp_Axi2Mat_fu_76_ap_done <= ap_const_logic_0;
-                elsif ((grp_Axi2Mat_fu_76_ap_done = ap_const_logic_1)) then 
-                    ap_sync_reg_grp_Axi2Mat_fu_76_ap_done <= ap_const_logic_1;
+                    ap_sync_reg_grp_Axi2Mat_fu_80_ap_done <= ap_const_logic_0;
+                elsif ((grp_Axi2Mat_fu_80_ap_done = ap_const_logic_1)) then 
+                    ap_sync_reg_grp_Axi2Mat_fu_80_ap_done <= ap_const_logic_1;
                 end if; 
             end if;
         end if;
     end process;
 
 
-    ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready_assign_proc : process(ap_clk)
+    ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst = '1') then
-                ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready <= ap_const_logic_0;
+                ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready <= ap_const_logic_0;
             else
                 if (((ap_const_logic_1 = ap_CS_fsm_state2) and (ap_const_boolean_0 = ap_block_state2_on_subcall_done))) then 
-                    ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready <= ap_const_logic_0;
-                elsif ((grp_Axi2Mat_fu_76_ap_ready = ap_const_logic_1)) then 
-                    ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready <= ap_const_logic_1;
+                    ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready <= ap_const_logic_0;
+                elsif ((grp_Axi2Mat_fu_80_ap_ready = ap_const_logic_1)) then 
+                    ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready <= ap_const_logic_1;
                 end if; 
             end if;
         end if;
     end process;
 
 
-    grp_Axi2Mat_fu_76_ap_start_reg_assign_proc : process(ap_clk)
+    grp_Axi2Mat_fu_80_ap_start_reg_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst = '1') then
-                grp_Axi2Mat_fu_76_ap_start_reg <= ap_const_logic_0;
+                grp_Axi2Mat_fu_80_ap_start_reg <= ap_const_logic_0;
             else
-                if ((((ap_const_logic_1 = ap_CS_fsm_state2) and (ap_sync_grp_Axi2Mat_fu_76_ap_ready = ap_const_logic_0)) or (not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (img_in_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1)))) then 
-                    grp_Axi2Mat_fu_76_ap_start_reg <= ap_const_logic_1;
-                elsif ((grp_Axi2Mat_fu_76_ap_ready = ap_const_logic_1)) then 
-                    grp_Axi2Mat_fu_76_ap_start_reg <= ap_const_logic_0;
+                if ((((ap_const_logic_1 = ap_CS_fsm_state2) and (ap_sync_grp_Axi2Mat_fu_80_ap_ready = ap_const_logic_0)) or (not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1)))) then 
+                    grp_Axi2Mat_fu_80_ap_start_reg <= ap_const_logic_1;
+                elsif ((grp_Axi2Mat_fu_80_ap_ready = ap_const_logic_1)) then 
+                    grp_Axi2Mat_fu_80_ap_start_reg <= ap_const_logic_0;
                 end if; 
             end if;
         end if;
@@ -231,18 +239,17 @@ begin
     begin
         if (ap_clk'event and ap_clk = '1') then
             if ((ap_const_logic_1 = ap_CS_fsm_state1)) then
-                dstMat_cols_read_reg_98 <= dstMat_cols_dout;
-                dstMat_rows_read_reg_93 <= dstMat_rows_dout;
-                img_in_read_reg_88 <= img_in_dout;
+                dstMat_cols_read_reg_97 <= dstMat_cols_dout;
+                dstMat_rows_read_reg_92 <= dstMat_rows_dout;
             end if;
         end if;
     end process;
 
-    ap_NS_fsm_assign_proc : process (real_start, ap_done_reg, ap_CS_fsm, ap_CS_fsm_state1, img_in_empty_n, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n, ap_CS_fsm_state2, ap_block_state2_on_subcall_done)
+    ap_NS_fsm_assign_proc : process (real_start, ap_done_reg, ap_CS_fsm, ap_CS_fsm_state1, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n, ap_CS_fsm_state2, ap_block_state2_on_subcall_done)
     begin
         case ap_CS_fsm is
             when ap_ST_fsm_state1 => 
-                if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (img_in_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then
+                if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then
                     ap_NS_fsm <= ap_ST_fsm_state2;
                 else
                     ap_NS_fsm <= ap_ST_fsm_state1;
@@ -260,21 +267,21 @@ begin
     ap_CS_fsm_state1 <= ap_CS_fsm(0);
     ap_CS_fsm_state2 <= ap_CS_fsm(1);
 
-    ap_block_state1_assign_proc : process(real_start, ap_done_reg, img_in_empty_n, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
+    ap_block_state1_assign_proc : process(real_start, ap_done_reg, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
     begin
-                ap_block_state1 <= ((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (img_in_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1));
+                ap_block_state1 <= ((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1));
     end process;
 
 
-    ap_block_state1_ignore_call12_assign_proc : process(real_start, ap_done_reg, img_in_empty_n, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
+    ap_block_state1_ignore_call13_assign_proc : process(real_start, ap_done_reg, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
     begin
-                ap_block_state1_ignore_call12 <= ((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (img_in_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1));
+                ap_block_state1_ignore_call13 <= ((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1));
     end process;
 
 
-    ap_block_state2_on_subcall_done_assign_proc : process(ap_sync_grp_Axi2Mat_fu_76_ap_ready, ap_sync_grp_Axi2Mat_fu_76_ap_done)
+    ap_block_state2_on_subcall_done_assign_proc : process(ap_sync_grp_Axi2Mat_fu_80_ap_ready, ap_sync_grp_Axi2Mat_fu_80_ap_done)
     begin
-                ap_block_state2_on_subcall_done <= ((ap_sync_grp_Axi2Mat_fu_76_ap_ready and ap_sync_grp_Axi2Mat_fu_76_ap_done) = ap_const_logic_0);
+                ap_block_state2_on_subcall_done <= ((ap_sync_grp_Axi2Mat_fu_80_ap_ready and ap_sync_grp_Axi2Mat_fu_80_ap_done) = ap_const_logic_0);
     end process;
 
 
@@ -298,8 +305,8 @@ begin
     end process;
 
     ap_ready <= internal_ap_ready;
-    ap_sync_grp_Axi2Mat_fu_76_ap_done <= (grp_Axi2Mat_fu_76_ap_done or ap_sync_reg_grp_Axi2Mat_fu_76_ap_done);
-    ap_sync_grp_Axi2Mat_fu_76_ap_ready <= (grp_Axi2Mat_fu_76_ap_ready or ap_sync_reg_grp_Axi2Mat_fu_76_ap_ready);
+    ap_sync_grp_Axi2Mat_fu_80_ap_done <= (grp_Axi2Mat_fu_80_ap_done or ap_sync_reg_grp_Axi2Mat_fu_80_ap_done);
+    ap_sync_grp_Axi2Mat_fu_80_ap_ready <= (grp_Axi2Mat_fu_80_ap_ready or ap_sync_reg_grp_Axi2Mat_fu_80_ap_ready);
 
     dstMat_cols_blk_n_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, dstMat_cols_empty_n)
     begin
@@ -322,9 +329,9 @@ begin
 
     dstMat_cols_out_din <= dstMat_cols_dout;
 
-    dstMat_cols_out_write_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, img_in_empty_n, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
+    dstMat_cols_out_write_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
     begin
-        if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (img_in_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
+        if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
             dstMat_cols_out_write <= ap_const_logic_1;
         else 
             dstMat_cols_out_write <= ap_const_logic_0;
@@ -332,9 +339,9 @@ begin
     end process;
 
 
-    dstMat_cols_read_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, img_in_empty_n, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
+    dstMat_cols_read_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
     begin
-        if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (img_in_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
+        if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
             dstMat_cols_read <= ap_const_logic_1;
         else 
             dstMat_cols_read <= ap_const_logic_0;
@@ -363,9 +370,9 @@ begin
 
     dstMat_rows_out_din <= dstMat_rows_dout;
 
-    dstMat_rows_out_write_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, img_in_empty_n, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
+    dstMat_rows_out_write_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
     begin
-        if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (img_in_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
+        if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
             dstMat_rows_out_write <= ap_const_logic_1;
         else 
             dstMat_rows_out_write <= ap_const_logic_0;
@@ -373,9 +380,9 @@ begin
     end process;
 
 
-    dstMat_rows_read_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, img_in_empty_n, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
+    dstMat_rows_read_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
     begin
-        if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (img_in_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
+        if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
             dstMat_rows_read <= ap_const_logic_1;
         else 
             dstMat_rows_read <= ap_const_logic_0;
@@ -383,47 +390,29 @@ begin
     end process;
 
 
-    grp_Axi2Mat_fu_76_ap_continue_assign_proc : process(ap_CS_fsm_state2, ap_block_state2_on_subcall_done)
+    grp_Axi2Mat_fu_80_ap_continue_assign_proc : process(ap_CS_fsm_state2, ap_block_state2_on_subcall_done)
     begin
         if (((ap_const_logic_1 = ap_CS_fsm_state2) and (ap_const_boolean_0 = ap_block_state2_on_subcall_done))) then 
-            grp_Axi2Mat_fu_76_ap_continue <= ap_const_logic_1;
+            grp_Axi2Mat_fu_80_ap_continue <= ap_const_logic_1;
         else 
-            grp_Axi2Mat_fu_76_ap_continue <= ap_const_logic_0;
+            grp_Axi2Mat_fu_80_ap_continue <= ap_const_logic_0;
         end if; 
     end process;
 
-    grp_Axi2Mat_fu_76_ap_start <= grp_Axi2Mat_fu_76_ap_start_reg;
-    imgInput_44_din <= grp_Axi2Mat_fu_76_imgInput_44_din;
+    grp_Axi2Mat_fu_80_ap_start <= grp_Axi2Mat_fu_80_ap_start_reg;
+    imgInput_44_din <= grp_Axi2Mat_fu_80_imgInput_44_din;
 
-    imgInput_44_write_assign_proc : process(grp_Axi2Mat_fu_76_imgInput_44_write, ap_CS_fsm_state2)
+    imgInput_44_write_assign_proc : process(grp_Axi2Mat_fu_80_imgInput_44_write, ap_CS_fsm_state2)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            imgInput_44_write <= grp_Axi2Mat_fu_76_imgInput_44_write;
+            imgInput_44_write <= grp_Axi2Mat_fu_80_imgInput_44_write;
         else 
             imgInput_44_write <= ap_const_logic_0;
         end if; 
     end process;
 
-
-    img_in_blk_n_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, img_in_empty_n)
-    begin
-        if ((not(((real_start = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            img_in_blk_n <= img_in_empty_n;
-        else 
-            img_in_blk_n <= ap_const_logic_1;
-        end if; 
-    end process;
-
-
-    img_in_read_assign_proc : process(real_start, ap_done_reg, ap_CS_fsm_state1, img_in_empty_n, dstMat_rows_empty_n, dstMat_cols_empty_n, dstMat_rows_out_full_n, dstMat_cols_out_full_n)
-    begin
-        if ((not(((real_start = ap_const_logic_0) or (dstMat_cols_out_full_n = ap_const_logic_0) or (dstMat_rows_out_full_n = ap_const_logic_0) or (dstMat_cols_empty_n = ap_const_logic_0) or (dstMat_rows_empty_n = ap_const_logic_0) or (img_in_empty_n = ap_const_logic_0) or (ap_done_reg = ap_const_logic_1))) and (ap_const_logic_1 = ap_CS_fsm_state1))) then 
-            img_in_read <= ap_const_logic_1;
-        else 
-            img_in_read <= ap_const_logic_0;
-        end if; 
-    end process;
-
+    img_in_address0 <= grp_Axi2Mat_fu_80_img_in_address0;
+    img_in_ce0 <= grp_Axi2Mat_fu_80_img_in_ce0;
 
     internal_ap_ready_assign_proc : process(ap_CS_fsm_state2, ap_block_state2_on_subcall_done)
     begin

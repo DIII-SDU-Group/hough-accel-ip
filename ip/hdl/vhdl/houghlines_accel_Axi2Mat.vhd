@@ -11,7 +11,11 @@ use IEEE.numeric_std.all;
 
 entity houghlines_accel_Axi2Mat is
 port (
-    p_read : IN STD_LOGIC_VECTOR (7 downto 0);
+    img_in_address0 : OUT STD_LOGIC_VECTOR (18 downto 0);
+    img_in_ce0 : OUT STD_LOGIC;
+    img_in_d0 : OUT STD_LOGIC_VECTOR (7 downto 0);
+    img_in_q0 : IN STD_LOGIC_VECTOR (7 downto 0);
+    img_in_we0 : OUT STD_LOGIC;
     imgInput_44_din : OUT STD_LOGIC_VECTOR (7 downto 0);
     imgInput_44_full_n : IN STD_LOGIC;
     imgInput_44_write : OUT STD_LOGIC;
@@ -19,7 +23,6 @@ port (
     cols : IN STD_LOGIC_VECTOR (9 downto 0);
     ap_clk : IN STD_LOGIC;
     ap_rst : IN STD_LOGIC;
-    p_read_ap_vld : IN STD_LOGIC;
     rows_ap_vld : IN STD_LOGIC;
     cols_ap_vld : IN STD_LOGIC;
     ap_start : IN STD_LOGIC;
@@ -31,8 +34,9 @@ end;
 
 
 architecture behav of houghlines_accel_Axi2Mat is 
-    constant ap_const_lv8_0 : STD_LOGIC_VECTOR (7 downto 0) := "00000000";
+    constant ap_const_lv19_0 : STD_LOGIC_VECTOR (18 downto 0) := "0000000000000000000";
     constant ap_const_logic_0 : STD_LOGIC := '0';
+    constant ap_const_lv8_0 : STD_LOGIC_VECTOR (7 downto 0) := "00000000";
     constant ap_const_logic_1 : STD_LOGIC := '1';
     constant ap_const_boolean_1 : BOOLEAN := true;
 
@@ -44,8 +48,6 @@ attribute shreg_extract : string;
     signal Axi2Mat_entry3_U0_ap_ready : STD_LOGIC;
     signal Axi2Mat_entry3_U0_start_out : STD_LOGIC;
     signal Axi2Mat_entry3_U0_start_write : STD_LOGIC;
-    signal Axi2Mat_entry3_U0_p_read_out_din : STD_LOGIC_VECTOR (7 downto 0);
-    signal Axi2Mat_entry3_U0_p_read_out_write : STD_LOGIC;
     signal Axi2Mat_entry3_U0_rows_out_din : STD_LOGIC_VECTOR (5 downto 0);
     signal Axi2Mat_entry3_U0_rows_out_write : STD_LOGIC;
     signal Axi2Mat_entry3_U0_cols_out_din : STD_LOGIC_VECTOR (9 downto 0);
@@ -57,11 +59,8 @@ attribute shreg_extract : string;
     signal Axi2Mat_entry21_U0_ap_ready : STD_LOGIC;
     signal Axi2Mat_entry21_U0_start_out : STD_LOGIC;
     signal Axi2Mat_entry21_U0_start_write : STD_LOGIC;
-    signal Axi2Mat_entry21_U0_p_read_read : STD_LOGIC;
     signal Axi2Mat_entry21_U0_rows_read : STD_LOGIC;
     signal Axi2Mat_entry21_U0_cols_read : STD_LOGIC;
-    signal Axi2Mat_entry21_U0_img_in_out_din : STD_LOGIC_VECTOR (7 downto 0);
-    signal Axi2Mat_entry21_U0_img_in_out_write : STD_LOGIC;
     signal Axi2Mat_entry21_U0_rows_out_din : STD_LOGIC_VECTOR (5 downto 0);
     signal Axi2Mat_entry21_U0_rows_out_write : STD_LOGIC;
     signal Axi2Mat_entry21_U0_cols_out_din : STD_LOGIC_VECTOR (9 downto 0);
@@ -103,7 +102,8 @@ attribute shreg_extract : string;
     signal Axi2AxiStream_U0_ap_continue : STD_LOGIC;
     signal Axi2AxiStream_U0_ap_idle : STD_LOGIC;
     signal Axi2AxiStream_U0_ap_ready : STD_LOGIC;
-    signal Axi2AxiStream_U0_img_in_read : STD_LOGIC;
+    signal Axi2AxiStream_U0_img_in_address0 : STD_LOGIC_VECTOR (18 downto 0);
+    signal Axi2AxiStream_U0_img_in_ce0 : STD_LOGIC;
     signal Axi2AxiStream_U0_ldata1_din : STD_LOGIC_VECTOR (7 downto 0);
     signal Axi2AxiStream_U0_ldata1_write : STD_LOGIC;
     signal AxiStream2MatStream_U0_ap_start : STD_LOGIC;
@@ -118,18 +118,12 @@ attribute shreg_extract : string;
     signal AxiStream2MatStream_U0_cols_bound_per_npc_read : STD_LOGIC;
     signal AxiStream2MatStream_U0_last_blk_width_read : STD_LOGIC;
     signal ap_sync_continue : STD_LOGIC;
-    signal p_read_c_full_n : STD_LOGIC;
-    signal p_read_c_dout : STD_LOGIC_VECTOR (7 downto 0);
-    signal p_read_c_empty_n : STD_LOGIC;
     signal rows_c1_full_n : STD_LOGIC;
     signal rows_c1_dout : STD_LOGIC_VECTOR (5 downto 0);
     signal rows_c1_empty_n : STD_LOGIC;
     signal cols_c2_full_n : STD_LOGIC;
     signal cols_c2_dout : STD_LOGIC_VECTOR (9 downto 0);
     signal cols_c2_empty_n : STD_LOGIC;
-    signal img_in_c_full_n : STD_LOGIC;
-    signal img_in_c_dout : STD_LOGIC_VECTOR (7 downto 0);
-    signal img_in_c_empty_n : STD_LOGIC;
     signal rows_c_full_n : STD_LOGIC;
     signal rows_c_dout : STD_LOGIC_VECTOR (5 downto 0);
     signal rows_c_empty_n : STD_LOGIC;
@@ -158,6 +152,8 @@ attribute shreg_extract : string;
     signal ap_sync_Axi2Mat_entry3_U0_ap_ready : STD_LOGIC;
     signal ap_sync_reg_last_blk_pxl_width_U0_ap_ready : STD_LOGIC := '0';
     signal ap_sync_last_blk_pxl_width_U0_ap_ready : STD_LOGIC;
+    signal ap_sync_reg_Axi2AxiStream_U0_ap_ready : STD_LOGIC := '0';
+    signal ap_sync_Axi2AxiStream_U0_ap_ready : STD_LOGIC;
     signal start_for_Axi2Mat_entry21_U0_din : STD_LOGIC_VECTOR (0 downto 0);
     signal start_for_Axi2Mat_entry21_U0_full_n : STD_LOGIC;
     signal start_for_Axi2Mat_entry21_U0_dout : STD_LOGIC_VECTOR (0 downto 0);
@@ -192,12 +188,8 @@ attribute shreg_extract : string;
         ap_ready : OUT STD_LOGIC;
         start_out : OUT STD_LOGIC;
         start_write : OUT STD_LOGIC;
-        p_read : IN STD_LOGIC_VECTOR (7 downto 0);
         rows : IN STD_LOGIC_VECTOR (5 downto 0);
         cols : IN STD_LOGIC_VECTOR (9 downto 0);
-        p_read_out_din : OUT STD_LOGIC_VECTOR (7 downto 0);
-        p_read_out_full_n : IN STD_LOGIC;
-        p_read_out_write : OUT STD_LOGIC;
         rows_out_din : OUT STD_LOGIC_VECTOR (5 downto 0);
         rows_out_full_n : IN STD_LOGIC;
         rows_out_write : OUT STD_LOGIC;
@@ -219,18 +211,12 @@ attribute shreg_extract : string;
         ap_ready : OUT STD_LOGIC;
         start_out : OUT STD_LOGIC;
         start_write : OUT STD_LOGIC;
-        p_read_dout : IN STD_LOGIC_VECTOR (7 downto 0);
-        p_read_empty_n : IN STD_LOGIC;
-        p_read_read : OUT STD_LOGIC;
         rows_dout : IN STD_LOGIC_VECTOR (5 downto 0);
         rows_empty_n : IN STD_LOGIC;
         rows_read : OUT STD_LOGIC;
         cols_dout : IN STD_LOGIC_VECTOR (9 downto 0);
         cols_empty_n : IN STD_LOGIC;
         cols_read : OUT STD_LOGIC;
-        img_in_out_din : OUT STD_LOGIC_VECTOR (7 downto 0);
-        img_in_out_full_n : IN STD_LOGIC;
-        img_in_out_write : OUT STD_LOGIC;
         rows_out_din : OUT STD_LOGIC_VECTOR (5 downto 0);
         rows_out_full_n : IN STD_LOGIC;
         rows_out_write : OUT STD_LOGIC;
@@ -307,9 +293,9 @@ attribute shreg_extract : string;
         ap_continue : IN STD_LOGIC;
         ap_idle : OUT STD_LOGIC;
         ap_ready : OUT STD_LOGIC;
-        img_in_dout : IN STD_LOGIC_VECTOR (7 downto 0);
-        img_in_empty_n : IN STD_LOGIC;
-        img_in_read : OUT STD_LOGIC;
+        img_in_address0 : OUT STD_LOGIC_VECTOR (18 downto 0);
+        img_in_ce0 : OUT STD_LOGIC;
+        img_in_q0 : IN STD_LOGIC_VECTOR (7 downto 0);
         ldata1_din : OUT STD_LOGIC_VECTOR (7 downto 0);
         ldata1_full_n : IN STD_LOGIC;
         ldata1_write : OUT STD_LOGIC;
@@ -344,21 +330,6 @@ attribute shreg_extract : string;
     end component;
 
 
-    component houghlines_accel_fifo_w8_d2_S IS
-    port (
-        clk : IN STD_LOGIC;
-        reset : IN STD_LOGIC;
-        if_read_ce : IN STD_LOGIC;
-        if_write_ce : IN STD_LOGIC;
-        if_din : IN STD_LOGIC_VECTOR (7 downto 0);
-        if_full_n : OUT STD_LOGIC;
-        if_write : IN STD_LOGIC;
-        if_dout : OUT STD_LOGIC_VECTOR (7 downto 0);
-        if_empty_n : OUT STD_LOGIC;
-        if_read : IN STD_LOGIC );
-    end component;
-
-
     component houghlines_accel_fifo_w6_d2_S IS
     port (
         clk : IN STD_LOGIC;
@@ -384,21 +355,6 @@ attribute shreg_extract : string;
         if_full_n : OUT STD_LOGIC;
         if_write : IN STD_LOGIC;
         if_dout : OUT STD_LOGIC_VECTOR (9 downto 0);
-        if_empty_n : OUT STD_LOGIC;
-        if_read : IN STD_LOGIC );
-    end component;
-
-
-    component houghlines_accel_fifo_w8_d4_S IS
-    port (
-        clk : IN STD_LOGIC;
-        reset : IN STD_LOGIC;
-        if_read_ce : IN STD_LOGIC;
-        if_write_ce : IN STD_LOGIC;
-        if_din : IN STD_LOGIC_VECTOR (7 downto 0);
-        if_full_n : OUT STD_LOGIC;
-        if_write : IN STD_LOGIC;
-        if_dout : OUT STD_LOGIC_VECTOR (7 downto 0);
         if_empty_n : OUT STD_LOGIC;
         if_read : IN STD_LOGIC );
     end component;
@@ -464,6 +420,21 @@ attribute shreg_extract : string;
     end component;
 
 
+    component houghlines_accel_fifo_w8_d2_S IS
+    port (
+        clk : IN STD_LOGIC;
+        reset : IN STD_LOGIC;
+        if_read_ce : IN STD_LOGIC;
+        if_write_ce : IN STD_LOGIC;
+        if_din : IN STD_LOGIC_VECTOR (7 downto 0);
+        if_full_n : OUT STD_LOGIC;
+        if_write : IN STD_LOGIC;
+        if_dout : OUT STD_LOGIC_VECTOR (7 downto 0);
+        if_empty_n : OUT STD_LOGIC;
+        if_read : IN STD_LOGIC );
+    end component;
+
+
     component houghlines_accel_start_for_Axi2Mat_entry21_U0 IS
     port (
         clk : IN STD_LOGIC;
@@ -523,12 +494,8 @@ begin
         ap_ready => Axi2Mat_entry3_U0_ap_ready,
         start_out => Axi2Mat_entry3_U0_start_out,
         start_write => Axi2Mat_entry3_U0_start_write,
-        p_read => p_read,
         rows => rows,
         cols => cols,
-        p_read_out_din => Axi2Mat_entry3_U0_p_read_out_din,
-        p_read_out_full_n => p_read_c_full_n,
-        p_read_out_write => Axi2Mat_entry3_U0_p_read_out_write,
         rows_out_din => Axi2Mat_entry3_U0_rows_out_din,
         rows_out_full_n => rows_c1_full_n,
         rows_out_write => Axi2Mat_entry3_U0_rows_out_write,
@@ -548,18 +515,12 @@ begin
         ap_ready => Axi2Mat_entry21_U0_ap_ready,
         start_out => Axi2Mat_entry21_U0_start_out,
         start_write => Axi2Mat_entry21_U0_start_write,
-        p_read_dout => p_read_c_dout,
-        p_read_empty_n => p_read_c_empty_n,
-        p_read_read => Axi2Mat_entry21_U0_p_read_read,
         rows_dout => rows_c1_dout,
         rows_empty_n => rows_c1_empty_n,
         rows_read => Axi2Mat_entry21_U0_rows_read,
         cols_dout => cols_c2_dout,
         cols_empty_n => cols_c2_empty_n,
         cols_read => Axi2Mat_entry21_U0_cols_read,
-        img_in_out_din => Axi2Mat_entry21_U0_img_in_out_din,
-        img_in_out_full_n => img_in_c_full_n,
-        img_in_out_write => Axi2Mat_entry21_U0_img_in_out_write,
         rows_out_din => Axi2Mat_entry21_U0_rows_out_din,
         rows_out_full_n => rows_c_full_n,
         rows_out_write => Axi2Mat_entry21_U0_rows_out_write,
@@ -628,9 +589,9 @@ begin
         ap_continue => Axi2AxiStream_U0_ap_continue,
         ap_idle => Axi2AxiStream_U0_ap_idle,
         ap_ready => Axi2AxiStream_U0_ap_ready,
-        img_in_dout => img_in_c_dout,
-        img_in_empty_n => img_in_c_empty_n,
-        img_in_read => Axi2AxiStream_U0_img_in_read,
+        img_in_address0 => Axi2AxiStream_U0_img_in_address0,
+        img_in_ce0 => Axi2AxiStream_U0_img_in_ce0,
+        img_in_q0 => img_in_q0,
         ldata1_din => Axi2AxiStream_U0_ldata1_din,
         ldata1_full_n => ldata_full_n,
         ldata1_write => Axi2AxiStream_U0_ldata1_write,
@@ -661,19 +622,6 @@ begin
         last_blk_width_empty_n => last_blk_width_c_empty_n,
         last_blk_width_read => AxiStream2MatStream_U0_last_blk_width_read);
 
-    p_read_c_U : component houghlines_accel_fifo_w8_d2_S
-    port map (
-        clk => ap_clk,
-        reset => ap_rst,
-        if_read_ce => ap_const_logic_1,
-        if_write_ce => ap_const_logic_1,
-        if_din => Axi2Mat_entry3_U0_p_read_out_din,
-        if_full_n => p_read_c_full_n,
-        if_write => Axi2Mat_entry3_U0_p_read_out_write,
-        if_dout => p_read_c_dout,
-        if_empty_n => p_read_c_empty_n,
-        if_read => Axi2Mat_entry21_U0_p_read_read);
-
     rows_c1_U : component houghlines_accel_fifo_w6_d2_S
     port map (
         clk => ap_clk,
@@ -699,19 +647,6 @@ begin
         if_dout => cols_c2_dout,
         if_empty_n => cols_c2_empty_n,
         if_read => Axi2Mat_entry21_U0_cols_read);
-
-    img_in_c_U : component houghlines_accel_fifo_w8_d4_S
-    port map (
-        clk => ap_clk,
-        reset => ap_rst,
-        if_read_ce => ap_const_logic_1,
-        if_write_ce => ap_const_logic_1,
-        if_din => Axi2Mat_entry21_U0_img_in_out_din,
-        if_full_n => img_in_c_full_n,
-        if_write => Axi2Mat_entry21_U0_img_in_out_write,
-        if_dout => img_in_c_dout,
-        if_empty_n => img_in_c_empty_n,
-        if_read => Axi2AxiStream_U0_img_in_read);
 
     rows_c_U : component houghlines_accel_fifo_w6_d2_S
     port map (
@@ -860,6 +795,22 @@ begin
 
 
 
+    ap_sync_reg_Axi2AxiStream_U0_ap_ready_assign_proc : process(ap_clk)
+    begin
+        if (ap_clk'event and ap_clk =  '1') then
+            if (ap_rst = '1') then
+                ap_sync_reg_Axi2AxiStream_U0_ap_ready <= ap_const_logic_0;
+            else
+                if (((ap_sync_ready and ap_start) = ap_const_logic_1)) then 
+                    ap_sync_reg_Axi2AxiStream_U0_ap_ready <= ap_const_logic_0;
+                else 
+                    ap_sync_reg_Axi2AxiStream_U0_ap_ready <= ap_sync_Axi2AxiStream_U0_ap_ready;
+                end if; 
+            end if;
+        end if;
+    end process;
+
+
     ap_sync_reg_Axi2Mat_entry3_U0_ap_ready_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
@@ -892,7 +843,7 @@ begin
     end process;
 
     Axi2AxiStream_U0_ap_continue <= ap_const_logic_1;
-    Axi2AxiStream_U0_ap_start <= axibound_V_empty_n;
+    Axi2AxiStream_U0_ap_start <= ((ap_sync_reg_Axi2AxiStream_U0_ap_ready xor ap_const_logic_1) and axibound_V_empty_n and ap_start);
     Axi2AxiStream_U0_start_full_n <= ap_const_logic_1;
     Axi2AxiStream_U0_start_write <= ap_const_logic_0;
     Axi2Mat_Block_split15_proc_U0_ap_continue <= axibound_V_full_n;
@@ -916,13 +867,18 @@ begin
     ap_done <= AxiStream2MatStream_U0_ap_done;
     ap_idle <= (last_blk_pxl_width_U0_ap_idle and (axibound_V_empty_n xor ap_const_logic_1) and (p_channel_empty_n xor ap_const_logic_1) and addrbound_U0_ap_idle and AxiStream2MatStream_U0_ap_idle and Axi2Mat_entry3_U0_ap_idle and Axi2Mat_entry21_U0_ap_idle and Axi2Mat_Block_split15_proc_U0_ap_idle and Axi2AxiStream_U0_ap_idle);
     ap_ready <= ap_sync_ready;
+    ap_sync_Axi2AxiStream_U0_ap_ready <= (ap_sync_reg_Axi2AxiStream_U0_ap_ready or Axi2AxiStream_U0_ap_ready);
     ap_sync_Axi2Mat_entry3_U0_ap_ready <= (ap_sync_reg_Axi2Mat_entry3_U0_ap_ready or Axi2Mat_entry3_U0_ap_ready);
     ap_sync_continue <= ap_continue;
     ap_sync_done <= AxiStream2MatStream_U0_ap_done;
     ap_sync_last_blk_pxl_width_U0_ap_ready <= (last_blk_pxl_width_U0_ap_ready or ap_sync_reg_last_blk_pxl_width_U0_ap_ready);
-    ap_sync_ready <= (ap_sync_last_blk_pxl_width_U0_ap_ready and ap_sync_Axi2Mat_entry3_U0_ap_ready);
+    ap_sync_ready <= (ap_sync_last_blk_pxl_width_U0_ap_ready and ap_sync_Axi2Mat_entry3_U0_ap_ready and ap_sync_Axi2AxiStream_U0_ap_ready);
     imgInput_44_din <= AxiStream2MatStream_U0_imgInput_44_din;
     imgInput_44_write <= AxiStream2MatStream_U0_imgInput_44_write;
+    img_in_address0 <= Axi2AxiStream_U0_img_in_address0;
+    img_in_ce0 <= Axi2AxiStream_U0_img_in_ce0;
+    img_in_d0 <= ap_const_lv8_0;
+    img_in_we0 <= ap_const_logic_0;
     last_blk_pxl_width_U0_ap_continue <= ap_const_logic_1;
     last_blk_pxl_width_U0_ap_start <= ((ap_sync_reg_last_blk_pxl_width_U0_ap_ready xor ap_const_logic_1) and ap_start);
     start_for_Axi2Mat_entry21_U0_din <= (0=>ap_const_logic_1, others=>'-');

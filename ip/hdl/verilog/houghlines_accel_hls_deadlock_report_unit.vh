@@ -136,31 +136,31 @@
             index = proc_index(dl_vec);
             case (index)
                 0 : begin
-                    proc_path = "houghlines_accel_houghlines_accel.Block_split1_proc27_U0";
+                    proc_path = "houghlines_accel_houghlines_accel.Block_split1_proc_U0";
                 end
                 1 : begin
                     proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0";
                 end
                 2 : begin
-                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0";
+                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0";
                 end
                 3 : begin
-                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0";
+                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0";
                 end
                 4 : begin
-                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_pxl_width_U0";
+                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0";
                 end
                 5 : begin
-                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0";
+                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0";
                 end
                 6 : begin
-                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_Block_split15_proc_U0";
+                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_Block_split15_proc_U0";
                 end
                 7 : begin
-                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2AxiStream_U0";
+                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2AxiStream_U0";
                 end
                 8 : begin
-                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0";
+                    proc_path = "houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0";
                 end
                 9 : begin
                     proc_path = "houghlines_accel_houghlines_accel.HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0";
@@ -228,7 +228,7 @@
                 0 : begin
                     case(index2)
                     1: begin
-                        if (~Block_split1_proc27_U0.imgInput_rows_out_blk_n) begin
+                        if (~Block_split1_proc_U0.imgInput_rows_out_blk_n) begin
                             if (~imgInput_rows_c_U.if_empty_n) begin
                                 $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.imgInput_rows_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0'");
                                 $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_rows_c_U");
@@ -240,7 +240,7 @@
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Block_split1_proc27_U0.imgInput_cols_out_blk_n) begin
+                        if (~Block_split1_proc_U0.imgInput_cols_out_blk_n) begin
                             if (~imgInput_cols_c_U.if_empty_n) begin
                                 $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.imgInput_cols_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0'");
                                 $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_cols_c_U");
@@ -252,69 +252,16 @@
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Block_split1_proc27_U0.img_in_out_blk_n) begin
-                            if (~img_in_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.img_in_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.img_in_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status EMPTY");
-                            end
-                            else if (~img_in_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.img_in_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.img_in_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status FULL");
-                            end
-                        end
-                        if (~start_for_Array2xfMat_8_0_480_640_1_U0_U.if_full_n & Block_split1_proc27_U0.ap_start & ~Block_split1_proc27_U0.real_start & (trans_in_cnt_0 == trans_out_cnt_0) & ~start_for_Array2xfMat_8_0_480_640_1_U0_U.if_read) begin
-                            $display("//      Blocked by full output start propagation FIFO 'houghlines_accel_houghlines_accel.start_for_Array2xfMat_8_0_480_640_1_U0_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0',");
+                        if (ap_sync_Block_split1_proc_U0_ap_ready & Block_split1_proc_U0.ap_idle & ~ap_sync_Array2xfMat_8_0_480_640_1_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0'");
                         end
                     end
                     endcase
                 end
                 1 : begin
                     case(index2)
-                    0: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.img_in_blk_n) begin
-                            if (~img_in_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.img_in_c_U' written by process 'houghlines_accel_houghlines_accel.Block_split1_proc27_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.img_in_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status EMPTY");
-                            end
-                            else if (~img_in_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.img_in_c_U' read by process 'houghlines_accel_houghlines_accel.Block_split1_proc27_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.img_in_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status FULL");
-                            end
-                        end
-                        if (~Array2xfMat_8_0_480_640_1_U0.dstMat_rows_blk_n) begin
-                            if (~imgInput_rows_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.imgInput_rows_c_U' written by process 'houghlines_accel_houghlines_accel.Block_split1_proc27_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_rows_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status EMPTY");
-                            end
-                            else if (~imgInput_rows_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.imgInput_rows_c_U' read by process 'houghlines_accel_houghlines_accel.Block_split1_proc27_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_rows_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status FULL");
-                            end
-                        end
-                        if (~Array2xfMat_8_0_480_640_1_U0.dstMat_cols_blk_n) begin
-                            if (~imgInput_cols_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.imgInput_cols_c_U' written by process 'houghlines_accel_houghlines_accel.Block_split1_proc27_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_cols_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status EMPTY");
-                            end
-                            else if (~imgInput_cols_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.imgInput_cols_c_U' read by process 'houghlines_accel_houghlines_accel.Block_split1_proc27_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_cols_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status FULL");
-                            end
-                        end
-                        if (~start_for_Array2xfMat_8_0_480_640_1_U0_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.ap_idle & ~start_for_Array2xfMat_8_0_480_640_1_U0_U.if_write) begin
-                            $display("//      Blocked by missing 'ap_start' from start propagation FIFO 'houghlines_accel_houghlines_accel.start_for_Array2xfMat_8_0_480_640_1_U0_U' written by process 'houghlines_accel_houghlines_accel.Block_split1_proc27_U0',");
-                        end
-                    end
                     9: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0.imgInput_44_blk_n) begin
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0.imgInput_44_blk_n) begin
                             if (~imgInput_data_U.if_empty_n) begin
                                 $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.imgInput_data_U' written by process 'houghlines_accel_houghlines_accel.HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0'");
                                 $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_data_U");
@@ -350,8 +297,37 @@
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~start_for_HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_U.if_full_n & Array2xfMat_8_0_480_640_1_U0.ap_start & ~Array2xfMat_8_0_480_640_1_U0.real_start & (trans_in_cnt_4 == trans_out_cnt_4) & ~start_for_HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_U.if_read) begin
+                        if (~start_for_HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_U.if_full_n & Array2xfMat_8_0_480_640_1_U0.ap_start & ~Array2xfMat_8_0_480_640_1_U0.real_start & (trans_in_cnt_3 == trans_out_cnt_3) & ~start_for_HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_U.if_read) begin
                             $display("//      Blocked by full output start propagation FIFO 'houghlines_accel_houghlines_accel.start_for_HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0_U' read by process 'houghlines_accel_houghlines_accel.HoughLines_1u_2u_32_800_0_180_0_480_640_1_U0',");
+                        end
+                    end
+                    0: begin
+                        if (~Array2xfMat_8_0_480_640_1_U0.dstMat_rows_blk_n) begin
+                            if (~imgInput_rows_c_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.imgInput_rows_c_U' written by process 'houghlines_accel_houghlines_accel.Block_split1_proc_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_rows_c_U");
+                                $fdisplay(fp, "Dependence_Channel_status EMPTY");
+                            end
+                            else if (~imgInput_rows_c_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.imgInput_rows_c_U' read by process 'houghlines_accel_houghlines_accel.Block_split1_proc_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_rows_c_U");
+                                $fdisplay(fp, "Dependence_Channel_status FULL");
+                            end
+                        end
+                        if (~Array2xfMat_8_0_480_640_1_U0.dstMat_cols_blk_n) begin
+                            if (~imgInput_cols_c_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.imgInput_cols_c_U' written by process 'houghlines_accel_houghlines_accel.Block_split1_proc_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_cols_c_U");
+                                $fdisplay(fp, "Dependence_Channel_status EMPTY");
+                            end
+                            else if (~imgInput_cols_c_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.imgInput_cols_c_U' read by process 'houghlines_accel_houghlines_accel.Block_split1_proc_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.imgInput_cols_c_U");
+                                $fdisplay(fp, "Dependence_Channel_status FULL");
+                            end
+                        end
+                        if (ap_sync_Array2xfMat_8_0_480_640_1_U0_ap_ready & Array2xfMat_8_0_480_640_1_U0.ap_idle & ~ap_sync_Block_split1_proc_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'houghlines_accel_houghlines_accel.Block_split1_proc_U0'");
                         end
                     end
                     endcase
@@ -359,49 +335,42 @@
                 2 : begin
                     case(index2)
                     3: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0.p_read_out_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0.rows_out_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0.rows_out_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0.cols_out_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0.cols_out_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U");
-                                $fdisplay(fp, "Dependence_Channel_status EMPTY");
-                            end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U");
-                                $fdisplay(fp, "Dependence_Channel_status FULL");
-                            end
-                        end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_Axi2Mat_entry21_U0_U.if_full_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0.ap_start & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0.real_start & (trans_in_cnt_1 == trans_out_cnt_1) & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_Axi2Mat_entry21_U0_U.if_read) begin
-                            $display("//      Blocked by full output start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_Axi2Mat_entry21_U0_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0',");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_Axi2Mat_entry21_U0_U.if_full_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0.ap_start & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0.real_start & (trans_in_cnt_0 == trans_out_cnt_0) & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_Axi2Mat_entry21_U0_U.if_read) begin
+                            $display("//      Blocked by full output start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_Axi2Mat_entry21_U0_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0',");
                         end
                     end
                     4: begin
-                        if (Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ap_sync_Axi2Mat_entry3_U0_ap_ready & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ap_sync_last_blk_pxl_width_U0_ap_ready) begin
-                            $display("//      Blocked by input sync logic with process : 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_pxl_width_U0'");
+                        if (Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_Axi2Mat_entry3_U0_ap_ready & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_last_blk_pxl_width_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0'");
+                        end
+                    end
+                    7: begin
+                        if (Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_Axi2Mat_entry3_U0_ap_ready & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_Axi2AxiStream_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2AxiStream_U0'");
                         end
                     end
                     endcase
@@ -409,87 +378,61 @@
                 3 : begin
                     case(index2)
                     2: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0.p_read_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0.rows_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_read_c_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c1_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0.rows_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0.cols_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c1_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c2_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0.cols_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U");
-                                $fdisplay(fp, "Dependence_Channel_status EMPTY");
-                            end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c2_U");
-                                $fdisplay(fp, "Dependence_Channel_status FULL");
-                            end
-                        end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_Axi2Mat_entry21_U0_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_Axi2Mat_entry21_U0_U.if_write) begin
-                            $display("//      Blocked by missing 'ap_start' from start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_Axi2Mat_entry21_U0_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0',");
-                        end
-                    end
-                    7: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0.img_in_out_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2AxiStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status EMPTY");
-                            end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2AxiStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status FULL");
-                            end
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_Axi2Mat_entry21_U0_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_Axi2Mat_entry21_U0_U.if_write) begin
+                            $display("//      Blocked by missing 'ap_start' from start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_Axi2Mat_entry21_U0_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0',");
                         end
                     end
                     5: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0.rows_out_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0.rows_out_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0.cols_out_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0.cols_out_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_addrbound_U0_U.if_full_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0.ap_start & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0.real_start & (trans_in_cnt_2 == trans_out_cnt_2) & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_addrbound_U0_U.if_read) begin
-                            $display("//      Blocked by full output start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_addrbound_U0_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0',");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_addrbound_U0_U.if_full_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0.ap_start & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0.real_start & (trans_in_cnt_1 == trans_out_cnt_1) & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_addrbound_U0_U.if_read) begin
+                            $display("//      Blocked by full output start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_addrbound_U0_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0',");
                         end
                     end
                     endcase
@@ -497,25 +440,30 @@
                 4 : begin
                     case(index2)
                     8: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_pxl_width_U0.ret_out_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0.ret_out_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_AxiStream2MatStream_U0_U.if_full_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_pxl_width_U0.ap_start & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_pxl_width_U0.real_start & (trans_in_cnt_3 == trans_out_cnt_3) & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_AxiStream2MatStream_U0_U.if_read) begin
-                            $display("//      Blocked by full output start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_AxiStream2MatStream_U0_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0',");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_AxiStream2MatStream_U0_U.if_full_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0.ap_start & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0.real_start & (trans_in_cnt_2 == trans_out_cnt_2) & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_AxiStream2MatStream_U0_U.if_read) begin
+                            $display("//      Blocked by full output start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_AxiStream2MatStream_U0_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0',");
                         end
                     end
                     2: begin
-                        if (Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ap_sync_last_blk_pxl_width_U0_ap_ready & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_pxl_width_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ap_sync_Axi2Mat_entry3_U0_ap_ready) begin
-                            $display("//      Blocked by input sync logic with process : 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry3_U0'");
+                        if (Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_last_blk_pxl_width_U0_ap_ready & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_Axi2Mat_entry3_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0'");
+                        end
+                    end
+                    7: begin
+                        if (Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_last_blk_pxl_width_U0_ap_ready & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_Axi2AxiStream_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2AxiStream_U0'");
                         end
                     end
                     endcase
@@ -523,56 +471,56 @@
                 5 : begin
                     case(index2)
                     3: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0.rows_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0.rows_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0.cols_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0.cols_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_addrbound_U0_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_addrbound_U0_U.if_write) begin
-                            $display("//      Blocked by missing 'ap_start' from start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_addrbound_U0_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0',");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_addrbound_U0_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_addrbound_U0_U.if_write) begin
+                            $display("//      Blocked by missing 'ap_start' from start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_addrbound_U0_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry21_U0',");
                         end
                     end
                     8: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0.rows_out_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0.rows_out_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0.cols_out_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0.cols_out_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
@@ -582,15 +530,15 @@
                 6 : begin
                     case(index2)
                     5: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_channel_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_Block_split15_proc_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_channel_U.if_write) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_channel_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_channel_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_channel_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.p_channel_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_Block_split15_proc_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.p_channel_U.if_write) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.p_channel_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.p_channel_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.p_channel_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_channel_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_channel_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.p_channel_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.p_channel_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.p_channel_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.p_channel_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
@@ -599,46 +547,42 @@
                 end
                 7 : begin
                     case(index2)
-                    3: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2AxiStream_U0.img_in_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status EMPTY");
-                            end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_entry21_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.img_in_c_U");
-                                $fdisplay(fp, "Dependence_Channel_status FULL");
-                            end
-                        end
-                    end
                     8: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2AxiStream_U0.ldata1_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2AxiStream_U0.ldata1_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
                     end
                     6: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.axibound_V_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2AxiStream_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.axibound_V_U.if_write) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.axibound_V_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.axibound_V_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_Block_split15_proc_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.axibound_V_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.axibound_V_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2AxiStream_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.axibound_V_U.if_write) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.axibound_V_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.axibound_V_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_Block_split15_proc_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.axibound_V_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.axibound_V_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.axibound_V_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2Mat_Block_split15_proc_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.axibound_V_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.axibound_V_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.axibound_V_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_Block_split15_proc_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.axibound_V_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
+                        end
+                    end
+                    2: begin
+                        if (Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_Axi2AxiStream_U0_ap_ready & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2AxiStream_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_Axi2Mat_entry3_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2Mat_entry3_U0'");
+                        end
+                    end
+                    4: begin
+                        if (Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_Axi2AxiStream_U0_ap_ready & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2AxiStream_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ap_sync_last_blk_pxl_width_U0_ap_ready) begin
+                            $display("//      Blocked by input sync logic with process : 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0'");
                         end
                     end
                     endcase
@@ -646,60 +590,60 @@
                 8 : begin
                     case(index2)
                     7: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0.ldata1_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2AxiStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0.ldata1_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2AxiStream_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.Axi2AxiStream_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.ldata_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.Axi2AxiStream_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.ldata_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
                     end
                     5: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0.rows_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0.rows_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.rows_c13_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.rows_c13_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0.cols_bound_per_npc_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0.cols_bound_per_npc_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.addrbound_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.cols_c14_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.addrbound_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.cols_c14_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
                     end
                     4: begin
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0.last_blk_width_blk_n) begin
-                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U.if_empty_n) begin
-                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_pxl_width_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0.last_blk_width_blk_n) begin
+                            if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U.if_empty_n) begin
+                                $display("//      Blocked by empty input FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status EMPTY");
                             end
-                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U.if_full_n) begin
-                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_pxl_width_U0'");
-                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_width_c_U");
+                            else if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U.if_full_n) begin
+                                $display("//      Blocked by full output FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U' read by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0'");
+                                $fdisplay(fp, "Dependence_Channel_path houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_width_c_U");
                                 $fdisplay(fp, "Dependence_Channel_status FULL");
                             end
                         end
-                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_AxiStream2MatStream_U0_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.AxiStream2MatStream_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_AxiStream2MatStream_U0_U.if_write) begin
-                            $display("//      Blocked by missing 'ap_start' from start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.start_for_AxiStream2MatStream_U0_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_76.last_blk_pxl_width_U0',");
+                        if (~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_AxiStream2MatStream_U0_U.if_empty_n & Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.AxiStream2MatStream_U0.ap_idle & ~Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_AxiStream2MatStream_U0_U.if_write) begin
+                            $display("//      Blocked by missing 'ap_start' from start propagation FIFO 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.start_for_AxiStream2MatStream_U0_U' written by process 'houghlines_accel_houghlines_accel.Array2xfMat_8_0_480_640_1_U0.grp_Axi2Mat_fu_80.last_blk_pxl_width_U0',");
                         end
                     end
                     endcase

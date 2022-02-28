@@ -7491,7 +7491,7 @@ houghlines_accel_fadd_32ns_32ns_32_5_full_dsp_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-fadd_32ns_32ns_32_5_full_dsp_1_U2420(
+fadd_32ns_32ns_32_5_full_dsp_1_U2412(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(angle_radn_reg_12542),
@@ -7506,7 +7506,7 @@ houghlines_accel_fmul_32ns_32ns_32_4_max_dsp_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-fmul_32ns_32ns_32_4_max_dsp_1_U2421(
+fmul_32ns_32ns_32_4_max_dsp_1_U2413(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(conv_i_reg_12537),
@@ -7520,7 +7520,7 @@ houghlines_accel_uitofp_32ns_32_4_no_dsp_1 #(
     .NUM_STAGE( 4 ),
     .din0_WIDTH( 32 ),
     .dout_WIDTH( 32 ))
-uitofp_32ns_32_4_no_dsp_1_U2422(
+uitofp_32ns_32_4_no_dsp_1_U2414(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_5352_p0),
@@ -7713,7 +7713,7 @@ houghlines_accel_mux_1808_12_1_1 #(
     .din179_WIDTH( 12 ),
     .din180_WIDTH( 8 ),
     .dout_WIDTH( 12 ))
-mux_1808_12_1_1_U2423(
+mux_1808_12_1_1_U2415(
     .din0(local_max_V_0_reg_10716),
     .din1(local_max_V_1_reg_10726),
     .din2(local_max_V_2_reg_10736),
@@ -8083,7 +8083,7 @@ houghlines_accel_mux_1808_12_1_1 #(
     .din179_WIDTH( 12 ),
     .din180_WIDTH( 8 ),
     .dout_WIDTH( 12 ))
-mux_1808_12_1_1_U2424(
+mux_1808_12_1_1_U2416(
     .din0(local_max_rho_V_0_reg_10721),
     .din1(local_max_rho_V_1_reg_10731),
     .din2(local_max_rho_V_2_reg_10741),

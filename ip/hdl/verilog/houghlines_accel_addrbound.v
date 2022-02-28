@@ -102,7 +102,7 @@ houghlines_accel_mul_mul_10ns_9ns_19_4_1 #(
     .din0_WIDTH( 10 ),
     .din1_WIDTH( 9 ),
     .dout_WIDTH( 19 ))
-mul_mul_10ns_9ns_19_4_1_U18(
+mul_mul_10ns_9ns_19_4_1_U12(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_81_p0),
